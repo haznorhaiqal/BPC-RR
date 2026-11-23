@@ -16,7 +16,7 @@
   <!-- Dynamic Favicon, iOS Home-Screen Icon & PWA Manifest (Generated from Official BPC Logo) -->
   <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="" />
   <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="" />
-  <link id="pwaManifest" rel="manifest" href="" />
+  <link id="pwaManifest" rel="manifest" href="./manifest.json" />
 <!-- ... existing code ... -->
           backgroundImage: {
             'bpc-radial':
@@ -98,11 +98,14 @@
       </div>
 
       <div class="space-y-3 text-xs text-bpc-iceSoft leading-relaxed">
+        <!-- Live Environment Diagnostic Banner (flags Telegram/WhatsApp in-app browser, iOS Chrome, or missing PWA files) -->
+        <div id="installDiagBanner" class="hidden rounded-xl bg-bpc-amberBg/80 border border-bpc-goldBorder/60 p-3 text-[11px] text-bpc-amberText leading-relaxed"></div>
+
         <!-- iPhone Safari Steps -->
         <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
-          <p class="font-sora text-xs font-bold text-white mb-1.5">iPhone (Safari)</p>
+          <p class="font-sora text-xs font-bold text-white mb-1.5">iPhone (Must Use Safari)</p>
           <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
-            <li>Open the hosted app link in <span class="font-semibold text-white">Safari</span>.</li>
+            <li>Open your <span class="font-mono text-bpc-teal">github.io</span> link in <span class="font-semibold text-white">Safari</span> (not Telegram or Chrome).</li>
             <li>Tap the <span class="font-semibold text-bpc-teal">Share</span> icon at the bottom bar.</li>
             <li>Scroll down and tap <span class="font-semibold text-bpc-gold">Add to Home Screen</span> &rarr; <span class="font-semibold text-white">Add</span>.</li>
           </ol>
@@ -110,18 +113,36 @@
 
         <!-- Android Chrome Steps -->
         <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
-          <p class="font-sora text-xs font-bold text-white mb-1.5">Android (Chrome)</p>
+          <p class="font-sora text-xs font-bold text-white mb-1.5">Android (Must Use Chrome)</p>
           <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
-            <li>Open the hosted app link in <span class="font-semibold text-white">Chrome</span>.</li>
-            <li>Tap the <span class="font-semibold text-bpc-teal">&#8942; Menu</span> (top-right corner).</li>
-            <li>Tap <span class="font-semibold text-bpc-gold">Add to Home screen</span> or <span class="font-semibold text-bpc-gold">Install app</span>.</li>
+            <li>Open your <span class="font-mono text-bpc-teal">github.io</span> link in <span class="font-semibold text-white">Chrome</span> (not Telegram's built-in browser).</li>
+            <li>Tap <span class="font-semibold text-bpc-teal">Install App</span> or Chrome's <span class="font-semibold text-bpc-teal">&#8942; Menu</span> &rarr; <span class="font-semibold text-bpc-gold">Add to Home screen</span> &rarr; <span class="font-semibold text-white">Install</span>.</li>
           </ol>
         </div>
 
-        <!-- Tip for Local Preview -->
-        <p class="text-[11px] text-bpc-slate px-1">
-          Tip: Rename this file to <span class="font-mono text-bpc-ice">index.html</span> and drag it onto <span class="font-mono text-bpc-teal">app.netlify.com/drop</span> to get your private HTTPS link in 30 seconds.
-        </p>
+        <!-- 1-Click GitHub Pages PWA Files Exporter (Ensures Native Chrome Install + Offline Mode) -->
+        <div class="rounded-xl bg-bpc-header/60 border border-bpc-teal/35 p-3.5">
+          <p class="font-sora text-[11px] font-bold text-bpc-teal uppercase tracking-wider mb-1">
+            GitHub Pages Install Kit (Upload Next to index.html)
+          </p>
+          <p class="text-[11px] text-bpc-iceSoft/85 mb-2.5">
+            Android Chrome requires real static files on GitHub Pages to show the native <span class="text-white font-semibold">Install App</span> prompt and work offline. Download these 4 files and upload them to the same GitHub folder as <span class="font-mono text-bpc-gold">index.html</span>:
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="btnDlManifest" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
+              &#8595; manifest.json
+            </button>
+            <button type="button" id="btnDlSw" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
+              &#8595; sw.js
+            </button>
+            <button type="button" id="btnDlIcon192" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
+              &#8595; icon-192.png
+            </button>
+            <button type="button" id="btnDlIcon512" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
+              &#8595; icon-512.png
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -136,6 +157,10 @@
       let copyResetTimeout = null;
       let deferredInstallPrompt = null;
       let currentManifestBlobUrl = '';
+      let cachedIcon192 = '';
+      let cachedIcon512 = '';
+      let hasStaticManifest = false;
+      let hasServiceWorker = false;
 
       // ============================================================
       // 2. DOM CACHE
@@ -150,6 +175,11 @@
         installModal: document.getElementById('installModal'),
         installModalBackdrop: document.getElementById('installModalBackdrop'),
         btnCloseInstallModal: document.getElementById('btnCloseInstallModal'),
+        installDiagBanner: document.getElementById('installDiagBanner'),
+        btnDlManifest: document.getElementById('btnDlManifest'),
+        btnDlSw: document.getElementById('btnDlSw'),
+        btnDlIcon192: document.getElementById('btnDlIcon192'),
+        btnDlIcon512: document.getElementById('btnDlIcon512'),
         headerLogoSvg: document.getElementById('headerLogoSvg'),
 // ... existing code ...
       // ============================================================
@@ -168,48 +198,8 @@
       }
 
       /**
-       * Renders a crisp square PNG icon onto an offscreen canvas so iOS Safari
-       * (apple-touch-icon) and Android (manifest icons) display the official BPC emblem cleanly.
-       */
-      function renderAppIconPng(sourceUrl, size = 180) {
-        return new Promise((resolve) => {
-          try {
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return resolve('');
-
-            // Institutional dark midnight-navy rounded app icon backdrop
-            ctx.fillStyle = '#0B1F2A';
-            ctx.fillRect(0, 0, size, size);
-
-            const img = new Image();
-            img.onload = () => {
-              const pad = Math.round(size * 0.14);
-              const maxBox = size - pad * 2;
-              const scale = Math.min(maxBox / (img.width || 316), maxBox / (img.height || 346));
-              const drawW = (img.width || 316) * scale;
-              const drawH = (img.height || 346) * scale;
-              const dx = (size - drawW) / 2;
-              const dy = (size - drawH) / 2;
-              ctx.drawImage(img, dx, dy, drawW, drawH);
-              try {
-                resolve(canvas.toDataURL('image/png'));
-              } catch (e) {
-                resolve('');
-              }
-            };
-            img.onerror = () => resolve('');
-            img.src = sourceUrl;
-          } catch (err) {
-            resolve('');
-          }
-        });
-      }
-
-      /**
-       * Updates the iOS apple-touch-icon and dynamic Web App Manifest with the active logo.
+       * Generates real 180/192/512 PNG app icons and validates static ./manifest.json.
+       * Falls back to an absolute-URL data: manifest when hosted as a single HTML file.
        */
       async function refreshPwaManifestAndIcons(customDataUrl) {
         try {
@@ -221,39 +211,114 @@
             logoSvgOrImg = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(rawSvg);
           }
 
-          const [icon180, icon512] = await Promise.all([
+          const [icon180, icon192, icon512] = await Promise.all([
             renderAppIconPng(logoSvgOrImg, 180),
+            renderAppIconPng(logoSvgOrImg, 192),
             renderAppIconPng(logoSvgOrImg, 512),
           ]);
+
+          cachedIcon192 = icon192;
+          cachedIcon512 = icon512;
 
           if (el.appleTouchIcon && icon180) {
             el.appleTouchIcon.href = icon180;
           }
 
-          if (el.pwaManifest) {
+          // Check whether a real static ./manifest.json is hosted alongside index.html
+          hasStaticManifest = false;
+          if (window.location.protocol === 'https:' || window.location.hostname === 'localhost') {
+            try {
+              const res = await fetch('./manifest.json', { cache: 'no-store' });
+              if (res.ok) {
+                hasStaticManifest = true;
+              }
+            } catch (e) {
+              hasStaticManifest = false;
+            }
+          }
+
+          // Only inject a fallback data-URI manifest if static ./manifest.json is missing
+          if (el.pwaManifest && !hasStaticManifest) {
+            const pageUrl = window.location.origin !== 'null'
+              ? window.location.origin + window.location.pathname
+              : './';
+            const scopeUrl = window.location.origin !== 'null'
+              ? new URL('./', window.location.href).href
+              : './';
+
             const manifestObj = {
+              id: pageUrl,
               name: 'BPC Net Sizing & TP Desk',
               short_name: 'BPC Sizing',
               description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
-              start_url: './',
+              start_url: pageUrl,
+              scope: scopeUrl,
               display: 'standalone',
               orientation: 'portrait',
               background_color: '#0B1F2A',
               theme_color: '#0B1F2A',
               icons: [
-                icon180 ? { src: icon180, sizes: '180x180', type: 'image/png', purpose: 'any maskable' } : null,
-                icon512 ? { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any maskable' } : null,
+                icon192 ? { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any' } : null,
+                icon512 ? { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any' } : null,
               ].filter(Boolean),
             };
-            if (currentManifestBlobUrl) {
-              URL.revokeObjectURL(currentManifestBlobUrl);
-            }
-            const blob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
-            currentManifestBlobUrl = URL.createObjectURL(blob);
-            el.pwaManifest.href = currentManifestBlobUrl;
+            el.pwaManifest.href =
+              'data:application/manifest+json;charset=utf-8,' +
+              encodeURIComponent(JSON.stringify(manifestObj));
           }
+          updateInstallDiagnostics();
         } catch (err) {
           // Silently ignore in restricted preview sandboxes
+        }
+      }
+
+      /**
+       * Diagnoses why native PWA install may be blocked in the current browser context.
+       */
+      function updateInstallDiagnostics() {
+        if (!el.installDiagBanner) return;
+        const ua = navigator.userAgent || '';
+        const proto = window.location.protocol;
+        const isInApp = /(Telegram|FBAN|FBAV|Instagram|Line|MicroMessenger|WhatsApp|TikTok|wv\))/i.test(ua);
+        const isIos = /iPhone|iPad|iPod/i.test(ua);
+        const isIosNonSafari = isIos && /(CriOS|FxiOS|EdgiOS|OPiOS)/i.test(ua);
+
+        let msg = '';
+        if (proto === 'file:') {
+          msg = '<strong>Local file detected:</strong> Phones cannot install <span class="font-mono">file://</span> pages. Open your live <span class="font-mono">https://...github.io/...</span> link instead.';
+        } else if (isInApp) {
+          msg = '<strong>In-App Browser detected (Telegram / WhatsApp / Social):</strong> Built-in browsers block app installation. Tap the menu (&#8942; or Share) and choose <strong>Open in Chrome</strong> or <strong>Open in Safari</strong> first.';
+        } else if (isIosNonSafari) {
+          msg = '<strong>iPhone Chrome/External Browser detected:</strong> Apple only allows Home Screen app installation from <strong>Safari</strong>. Copy this URL and open it in Safari.';
+        } else if (proto === 'https:' && (!hasStaticManifest || !hasServiceWorker)) {
+          msg = '<strong>GitHub Pages PWA files missing:</strong> Download the 4 files below (<span class="font-mono">manifest.json</span>, <span class="font-mono">sw.js</span>, and both PNG icons) and upload them into the same GitHub folder as <span class="font-mono">index.html</span> so Android Chrome activates 1-tap install.';
+        }
+
+        if (msg) {
+          el.installDiagBanner.innerHTML = msg;
+          el.installDiagBanner.classList.remove('hidden');
+        } else {
+          el.installDiagBanner.classList.add('hidden');
+        }
+      }
+
+      function downloadFileHelper(filename, contentOrDataUrl, isDataUrl = false) {
+        try {
+          const a = document.createElement('a');
+          if (isDataUrl) {
+            a.href = contentOrDataUrl;
+          } else {
+            const blob = new Blob([contentOrDataUrl], { type: 'text/plain;charset=utf-8' });
+            a.href = URL.createObjectURL(blob);
+          }
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          if (!isDataUrl) setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+          showToast(`Downloaded ${filename}`);
+        } catch (err) {
+          showToast(`Could not download ${filename}`);
         }
       }
 
@@ -307,11 +372,26 @@
           el.btnInstallApp.classList.add('hidden');
         }
 
+        // Register ./sw.js on HTTPS (required by Android Chrome for full PWA install + offline launch)
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+          navigator.serviceWorker
+            .register('./sw.js', { scope: './' })
+            .then(() => {
+              hasServiceWorker = true;
+              updateInstallDiagnostics();
+            })
+            .catch(() => {
+              hasServiceWorker = false;
+              updateInstallDiagnostics();
+            });
+        }
+
         // Capture Android Chrome / Edge native install prompt when hosted over HTTPS
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           deferredInstallPrompt = e;
           if (el.btnInstallApp) el.btnInstallApp.classList.remove('hidden');
+          if (el.installBtnText) el.installBtnText.textContent = 'Install App';
         });
 
         window.addEventListener('appinstalled', () => {
@@ -334,7 +414,10 @@
         });
 
         // Mobile Install App Button & Modal Controls
-        const openInstallModal = () => el.installModal && el.installModal.classList.remove('hidden');
+        const openInstallModal = () => {
+          updateInstallDiagnostics();
+          if (el.installModal) el.installModal.classList.remove('hidden');
+        };
         const closeInstallModal = () => el.installModal && el.installModal.classList.add('hidden');
 
         if (el.btnInstallApp) {
@@ -353,6 +436,70 @@
               }
             }
             openInstallModal();
+          });
+        }
+
+        // 1-Click GitHub Pages PWA Kit Download Handlers
+        if (el.btnDlManifest) {
+          el.btnDlManifest.addEventListener('click', () => {
+            const manifestJson = JSON.stringify(
+              {
+                name: 'BPC Net Sizing & TP Desk',
+                short_name: 'BPC Sizing',
+                description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
+                start_url: './index.html',
+                scope: './',
+                display: 'standalone',
+                orientation: 'portrait',
+                background_color: '#0B1F2A',
+                theme_color: '#0B1F2A',
+                icons: [
+                  { src: './icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+                  { src: './icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+                ],
+              },
+              null,
+              2
+            );
+            downloadFileHelper('manifest.json', manifestJson, false);
+          });
+        }
+
+        if (el.btnDlSw) {
+          el.btnDlSw.addEventListener('click', () => {
+            const swCode = [
+              "const CACHE_NAME = 'bpc-sizing-v1';",
+              "const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];",
+              "self.addEventListener('install', (e) => {",
+              "  e.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));",
+              "});",
+              "self.addEventListener('activate', (e) => {",
+              "  e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))).then(() => self.clients.claim()));",
+              "});",
+              "self.addEventListener('fetch', (e) => {",
+              "  if (e.request.method !== 'GET') return;",
+              "  e.respondWith(fetch(e.request).then((res) => {",
+              "    const copy = res.clone();",
+              "    caches.open(CACHE_NAME).then((c) => c.put(e.request, copy)).catch(() => {});",
+              "    return res;",
+              "  }).catch(() => caches.match(e.request)));",
+              "});",
+            ].join('\n');
+            downloadFileHelper('sw.js', swCode, false);
+          });
+        }
+
+        if (el.btnDlIcon192) {
+          el.btnDlIcon192.addEventListener('click', () => {
+            if (!cachedIcon192) return showToast('Icon still generating — try again in 1 second');
+            downloadFileHelper('icon-192.png', cachedIcon192, true);
+          });
+        }
+
+        if (el.btnDlIcon512) {
+          el.btnDlIcon512.addEventListener('click', () => {
+            if (!cachedIcon512) return showToast('Icon still generating — try again in 1 second');
+            downloadFileHelper('icon-512.png', cachedIcon512, true);
           });
         }
 
