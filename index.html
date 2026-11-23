@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>BPC Net Sizing &amp; TP Desk — Bursa Papertrade Channel</title>
 
-  <!-- Mobile App / PWA Installation Meta Tags (iOS & Android Full-Screen Standalone) -->
+  <!-- Mobile App / PWA Installation Meta Tags (iOS & Android Standalone Mode) -->
   <meta name="theme-color" content="#0B1F2A" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
@@ -13,11 +13,53 @@
   <meta name="apple-mobile-web-app-title" content="BPC Sizing" />
   <meta name="application-name" content="BPC Sizing" />
 
-  <!-- Dynamic Favicon, iOS Home-Screen Icon & PWA Manifest (Generated from Official BPC Logo) -->
+  <!-- Dynamic Favicon, iOS Home-Screen Icon & Static PWA Manifest -->
   <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="" />
   <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="" />
   <link id="pwaManifest" rel="manifest" href="./manifest.json" />
-<!-- ... existing code ... -->
+
+  <!-- Google Fonts: Sora (Headings), Inter (UI), JetBrains Mono (Numbers) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Sora:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sora: ['Sora', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bpc: {
+              canvas: '#0B1F2A',
+              header: '#0E3A43',
+              panel: '#102936',
+              panelAlt: '#143242',
+              accent: '#123E47',
+              teal: '#2FD1C3',
+              tealDeep: '#135B5B',
+              tealSoft: '#103B3A',
+              gold: '#F3E5B5',
+              goldBorder: '#C9A959',
+              ice: '#E6F4F7',
+              iceSoft: '#CFE8EC',
+              slate: '#88B0BC',
+              border: '#1E4656',
+              crimsonBg: '#3D1C22',
+              crimsonText: '#F87171',
+              amberBg: '#362D18',
+              amberText: '#F5D076',
+            },
+          },
           backgroundImage: {
             'bpc-radial':
               'radial-gradient(ellipse 85% 45% at 50% -10%, rgba(47, 209, 195, 0.14), rgba(14, 58, 67, 0.08) 45%, rgba(11, 31, 42, 0) 75%)',
@@ -27,17 +69,77 @@
     };
   </script>
   <style>
-    /* Native mobile app feel: prevent accidental double-tap zoom on rapid tick buttons & respect phone safe areas */
+    /* Native mobile app feel: prevent accidental double-tap zoom on rapid tick buttons & respect safe areas */
     button, input, label {
       touch-action: manipulation;
     }
     body {
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
+      background-color: #0B1F2A;
+      color: #E6F4F7;
+    }
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type='number'] {
+      -moz-appearance: textfield;
     }
   </style>
 </head>
-<!-- ... existing code ... -->
+<body class="min-h-screen bg-bpc-canvas bg-bpc-radial font-inter text-bpc-ice antialiased selection:bg-bpc-teal/30 selection:text-white">
+
+  <!-- ==================== OFFICIAL BURSA PAPERTRADE CHANNEL LOGO SYMBOL ==================== -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+    <defs>
+      <symbol id="bpc-official-logo" viewBox="0 0 316 346">
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M244 270L243 271L240 270L230 271L214 292L197 309L187 316L178 319L169 319L154 325L136 317L119 306L113 300L114 293L96 301L105 310L118 320L140 334L155 341L157 339L184 326L210 309L233 287L244 272ZM308 176L307 176L307 183L304 192L296 199L286 201L283 204L266 197L258 197L254 200L252 200L248 198L241 191L239 187L239 181L247 165L246 165L233 177L226 190L226 196L228 200L238 209L245 212L236 218L227 217L222 210L223 209L227 210L228 208L217 199L200 190L189 187L171 188L161 192L143 206L112 226L104 230L98 230L90 233L76 242L68 249L62 252L54 251L47 245L47 235L51 228L57 222L66 219L72 213L77 203L77 196L72 199L60 203L53 210L52 214L53 220L47 226L43 233L41 245L45 253L52 257L62 257L67 255L70 252L72 253L68 260L65 270L65 277L62 283L57 289L52 292L51 303L43 320L43 323L46 330L45 336L65 336L62 327L55 321L56 315L60 307L67 299L85 291L97 283L102 277L117 250L118 251L117 258L111 278L121 274L130 273L157 279L148 268L146 263L146 258L150 249L159 238L160 240L156 250L156 261L159 267L171 278L177 281L183 281L189 283L185 289L177 296L174 293L168 293L162 296L158 302L158 307L162 308L181 307L197 292L203 284L202 276L184 259L185 258L191 259L195 257L199 253L200 250L200 239L198 234L192 228L193 227L199 230L205 236L208 242L209 252L206 263L210 262L215 257L217 253L219 242L222 247L222 255L233 252L232 241L236 234L240 248L244 252L255 256L263 266L269 271L279 272L285 269L291 260L285 240L285 236L289 230L289 222L287 218L289 216L292 216L301 212L307 207L311 198L311 186L308 179ZM270 261L271 260L271 258L273 256L275 256L277 257L280 260L281 262L279 263L275 259L273 260L273 262L272 263L271 263ZM256 222L257 221L261 224L264 225L268 229L269 231L269 234L267 235L265 231L260 231L257 227L257 224ZM111 141L106 141L106 157L105 158L94 158L94 220L97 220L107 215L123 203L123 158L112 158L111 157ZM162 105L156 105L156 120L154 122L144 122L144 189L160 179L174 176L174 122L163 122L162 121ZM212 73L212 91L211 92L200 92L200 164L211 164L212 165L212 176L218 177L218 165L219 164L230 164L230 92L219 92L218 91L218 73ZM253 53L250 68L283 77L287 81L287 104L286 105L284 139L280 166L275 187L288 190L292 179L299 135L300 100L301 99L301 65L272 59ZM247 5L226 8L215 8L206 10L196 10L209 24L209 26L165 70L153 59L147 63L56 154L56 156L66 164L151 81L153 81L167 94L169 94L223 39L225 39L241 54L242 35ZM153 4L109 32L83 45L54 55L24 62L5 65L4 96L5 97L6 129L7 130L9 158L12 176L20 208L25 223L31 233L39 216L36 212L31 199L24 165L20 137L20 129L19 128L19 115L18 114L18 82L19 79L23 77L51 72L89 59L119 44L152 22L178 40L187 30L188 27Z"
+        />
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ==================== TOP INSTITUTIONAL MASTHEAD ==================== -->
+  <header class="border-b border-bpc-border bg-bpc-header/90 backdrop-blur-md sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <!-- Brand Lockup -->
+      <div class="flex items-center gap-3.5 min-w-0">
+        <div class="shrink-0 w-[46px] h-[50px] flex items-center justify-center rounded-xl bg-bpc-canvas/90 border border-bpc-teal/35 p-1.5 shadow-lg shadow-black/30">
+          <svg id="headerLogoSvg" class="w-full h-full text-[#F1F3F2]" aria-label="Bursa Papertrade Channel Logo">
+            <use href="#bpc-official-logo"></use>
+          </svg>
+          <img id="headerLogoImg" class="hidden w-full h-full object-contain" alt="Custom Brand Logo" />
+        </div>
+
+        <div class="min-w-0">
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <div class="leading-tight">
+              <p class="font-sora text-xs sm:text-[13px] font-extrabold tracking-[0.14em] text-[#F1F3F2] uppercase">
+                BURSA PAPERTRADE
+              </p>
+              <p class="font-sora text-[10px] font-bold tracking-[0.34em] text-bpc-teal uppercase">
+                CHANNEL
+              </p>
+            </div>
+            <span class="hidden sm:inline-block h-7 w-px bg-bpc-border" aria-hidden="true"></span>
+            <div class="hidden sm:block">
+              <h1 class="font-sora text-sm sm:text-base font-bold text-white leading-tight">
+                BPC Net Sizing &amp; TP Desk
+              </h1>
+              <p class="text-[11px] text-bpc-slate leading-tight">
+                Fee-Exact 2% Position Engine &middot; 3-Decimal Bursa Ticks
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Right Pill Badge + Mobile Install App Trigger -->
       <div class="flex flex-wrap items-center self-start md:self-center gap-2 shrink-0">
         <div class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-bpc-canvas/80 border border-bpc-teal/35">
@@ -66,7 +168,529 @@
       </div>
     </div>
   </header>
-<!-- ... existing code ... -->
+
+  <!-- ==================== MAIN TWO-COLUMN TERMINAL ==================== -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-5 sm:py-7">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+      <!-- ==================== LEFT COLUMN: TRADE SETUP + BROKER FEES ==================== -->
+      <section class="lg:col-span-5 space-y-5">
+
+        <!-- Card 1: Trade Setup Inputs -->
+        <div class="rounded-2xl bg-bpc-panel border border-bpc-border shadow-xl shadow-black/30 overflow-hidden">
+          <div class="px-5 py-3.5 bg-bpc-header/70 border-b border-bpc-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-4 rounded-full bg-bpc-teal"></span>
+              <h2 class="font-sora text-xs font-bold uppercase tracking-widest text-bpc-teal">
+                Trade Setup Inputs
+              </h2>
+            </div>
+            <span class="font-mono text-[10px] font-semibold px-2 py-0.5 rounded bg-bpc-gold/15 text-bpc-gold border border-bpc-goldBorder/40">
+              GOLD = EDIT
+            </span>
+          </div>
+
+          <div class="p-5 space-y-4">
+            <!-- 1. Trading Equity -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="inputEquity" class="text-xs font-semibold text-bpc-ice">
+                  Trading Equity (RM)
+                </label>
+                <div class="flex items-center gap-1">
+                  <button type="button" data-equity="5000" class="eq-chip px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-bpc-panelAlt text-bpc-iceSoft hover:text-bpc-teal border border-bpc-border transition">5k</button>
+                  <button type="button" data-equity="10000" class="eq-chip px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-bpc-panelAlt text-bpc-iceSoft hover:text-bpc-teal border border-bpc-border transition">10k</button>
+                  <button type="button" data-equity="20000" class="eq-chip px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-bpc-panelAlt text-bpc-iceSoft hover:text-bpc-teal border border-bpc-border transition">20k</button>
+                  <button type="button" data-equity="50000" class="eq-chip px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-bpc-panelAlt text-bpc-iceSoft hover:text-bpc-teal border border-bpc-border transition">50k</button>
+                </div>
+              </div>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-bpc-canvas/70">RM</span>
+                <input
+                  id="inputEquity"
+                  type="number"
+                  inputmode="decimal"
+                  step="500"
+                  min="0"
+                  value="10000"
+                  class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-bpc-gold text-bpc-canvas font-mono text-base font-bold border border-bpc-goldBorder focus:outline-none focus:ring-2 focus:ring-bpc-teal"
+                />
+              </div>
+            </div>
+
+            <!-- 2. Risk Cap (%) -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="inputRiskPct" class="text-xs font-semibold text-bpc-ice">
+                  Risk Cap (%)
+                </label>
+                <span id="maxRiskRmHint" class="font-mono text-[11px] font-semibold text-bpc-teal">
+                  Budget: RM200.00
+                </span>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5 mb-2">
+                <button type="button" data-risk="0.5" class="risk-chip py-1.5 rounded-lg font-mono text-xs font-bold border transition">0.5%</button>
+                <button type="button" data-risk="1.0" class="risk-chip py-1.5 rounded-lg font-mono text-xs font-bold border transition">1.0%</button>
+                <button type="button" data-risk="1.5" class="risk-chip py-1.5 rounded-lg font-mono text-xs font-bold border transition">1.5%</button>
+                <button type="button" data-risk="2.0" class="risk-chip py-1.5 rounded-lg font-mono text-xs font-bold border transition">2.0%</button>
+                <button type="button" id="btnCustomRisk" class="py-1.5 rounded-lg font-mono text-[11px] font-bold bg-bpc-panelAlt text-bpc-slate border border-bpc-border hover:border-bpc-teal transition">Custom</button>
+              </div>
+              <div id="customRiskWrap" class="hidden relative">
+                <input
+                  id="inputRiskPct"
+                  type="number"
+                  inputmode="decimal"
+                  step="0.1"
+                  min="0.1"
+                  max="100"
+                  value="2.0"
+                  class="w-full pl-4 pr-10 py-2 rounded-xl bg-bpc-gold text-bpc-canvas font-mono text-sm font-bold border border-bpc-goldBorder focus:outline-none focus:ring-2 focus:ring-bpc-teal"
+                />
+                <span class="absolute right-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-bpc-canvas/70">%</span>
+              </div>
+            </div>
+
+            <hr class="border-bpc-border/70" />
+
+            <!-- 3. Entry Point -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="inputEp" class="text-xs font-semibold text-bpc-ice">
+                  Entry Point
+                </label>
+                <span class="font-mono text-[10px] text-bpc-slate">3-decimal Bursa tick</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  data-step-target="ep"
+                  data-step-dir="-1"
+                  aria-label="Decrease Entry Point"
+                  class="tick-btn shrink-0 w-11 h-11 rounded-xl bg-bpc-panelAlt hover:bg-bpc-header active:scale-95 border border-bpc-border text-bpc-teal font-mono text-lg font-bold transition"
+                >&minus;</button>
+                <div class="relative flex-1">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-bpc-canvas/70">RM</span>
+                  <input
+                    id="inputEp"
+                    type="number"
+                    inputmode="decimal"
+                    step="0.005"
+                    min="0.005"
+                    value="0.525"
+                    class="w-full pl-11 pr-3 py-2.5 rounded-xl bg-bpc-gold text-bpc-canvas font-mono text-base font-bold text-right border border-bpc-goldBorder focus:outline-none focus:ring-2 focus:ring-bpc-teal"
+                  />
+                </div>
+                <button
+                  type="button"
+                  data-step-target="ep"
+                  data-step-dir="1"
+                  aria-label="Increase Entry Point"
+                  class="tick-btn shrink-0 w-11 h-11 rounded-xl bg-bpc-panelAlt hover:bg-bpc-header active:scale-95 border border-bpc-border text-bpc-teal font-mono text-lg font-bold transition"
+                >+</button>
+              </div>
+            </div>
+
+            <!-- 4. Stop Loss -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="inputSl" class="text-xs font-semibold text-bpc-ice">
+                  Stop Loss
+                </label>
+                <span id="slDistHint" class="font-mono text-[11px] font-semibold text-bpc-crimsonText">
+                  &minus;RM0.045 (&minus;8.57%)
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  data-step-target="sl"
+                  data-step-dir="-1"
+                  aria-label="Decrease Stop Loss"
+                  class="tick-btn shrink-0 w-11 h-11 rounded-xl bg-bpc-panelAlt hover:bg-bpc-header active:scale-95 border border-bpc-border text-bpc-crimsonText font-mono text-lg font-bold transition"
+                >&minus;</button>
+                <div class="relative flex-1">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-bpc-canvas/70">RM</span>
+                  <input
+                    id="inputSl"
+                    type="number"
+                    inputmode="decimal"
+                    step="0.005"
+                    min="0.005"
+                    value="0.480"
+                    class="w-full pl-11 pr-3 py-2.5 rounded-xl bg-bpc-gold text-bpc-canvas font-mono text-base font-bold text-right border border-bpc-goldBorder focus:outline-none focus:ring-2 focus:ring-bpc-teal"
+                  />
+                </div>
+                <button
+                  type="button"
+                  data-step-target="sl"
+                  data-step-dir="1"
+                  aria-label="Increase Stop Loss"
+                  class="tick-btn shrink-0 w-11 h-11 rounded-xl bg-bpc-panelAlt hover:bg-bpc-header active:scale-95 border border-bpc-border text-bpc-crimsonText font-mono text-lg font-bold transition"
+                >+</button>
+              </div>
+            </div>
+
+            <!-- 5. Take Profit (TP) -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="inputTp" class="text-xs font-semibold text-bpc-ice">
+                  Take Profit (TP)
+                </label>
+                <span id="tpDistHint" class="font-mono text-[11px] font-semibold text-bpc-teal">
+                  +RM0.100 (+19.05%)
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  data-step-target="tp"
+                  data-step-dir="-1"
+                  aria-label="Decrease Take Profit"
+                  class="tick-btn shrink-0 w-11 h-11 rounded-xl bg-bpc-panelAlt hover:bg-bpc-header active:scale-95 border border-bpc-border text-bpc-teal font-mono text-lg font-bold transition"
+                >&minus;</button>
+                <div class="relative flex-1">
+                  <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-xs font-bold text-bpc-canvas/70">RM</span>
+                  <input
+                    id="inputTp"
+                    type="number"
+                    inputmode="decimal"
+                    step="0.005"
+                    min="0.005"
+                    value="0.625"
+                    class="w-full pl-11 pr-3 py-2.5 rounded-xl bg-bpc-gold text-bpc-canvas font-mono text-base font-bold text-right border border-bpc-goldBorder focus:outline-none focus:ring-2 focus:ring-bpc-teal"
+                  />
+                </div>
+                <button
+                  type="button"
+                  data-step-target="tp"
+                  data-step-dir="1"
+                  aria-label="Increase Take Profit"
+                  class="tick-btn shrink-0 w-11 h-11 rounded-xl bg-bpc-panelAlt hover:bg-bpc-header active:scale-95 border border-bpc-border text-bpc-teal font-mono text-lg font-bold transition"
+                >+</button>
+              </div>
+
+              <!-- Auto-TP Chips -->
+              <div class="grid grid-cols-4 gap-1.5 mt-2">
+                <button type="button" data-auto-tp="rr2" class="auto-tp-chip py-1.5 rounded-lg bg-bpc-panelAlt hover:bg-bpc-header border border-bpc-border hover:border-bpc-teal/70 font-mono text-[11px] font-semibold text-bpc-iceSoft hover:text-bpc-teal transition">1:2 R:R</button>
+                <button type="button" data-auto-tp="rr3" class="auto-tp-chip py-1.5 rounded-lg bg-bpc-panelAlt hover:bg-bpc-header border border-bpc-border hover:border-bpc-teal/70 font-mono text-[11px] font-semibold text-bpc-iceSoft hover:text-bpc-teal transition">1:3 R:R</button>
+                <button type="button" data-auto-tp="pct10" class="auto-tp-chip py-1.5 rounded-lg bg-bpc-panelAlt hover:bg-bpc-header border border-bpc-border hover:border-bpc-teal/70 font-mono text-[11px] font-semibold text-bpc-iceSoft hover:text-bpc-teal transition">+10%</button>
+                <button type="button" data-auto-tp="pct20" class="auto-tp-chip py-1.5 rounded-lg bg-bpc-panelAlt hover:bg-bpc-header border border-bpc-border hover:border-bpc-teal/70 font-mono text-[11px] font-semibold text-bpc-iceSoft hover:text-bpc-teal transition">+20%</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Collapsible Bursa Broker, Fee & Logo Settings -->
+        <div class="rounded-2xl bg-bpc-panel border border-bpc-border shadow-xl shadow-black/30 overflow-hidden">
+          <button
+            type="button"
+            id="btnToggleSettings"
+            aria-expanded="false"
+            class="w-full px-5 py-3.5 bg-bpc-header/60 hover:bg-bpc-header/85 flex items-center justify-between text-left transition"
+          >
+            <div>
+              <p class="font-sora text-xs font-bold uppercase tracking-widest text-bpc-ice">
+                Bursa Broker &amp; Fee Settings
+              </p>
+              <p id="feeSummarySubtitle" class="font-mono text-[11px] text-bpc-slate mt-0.5">
+                Brok 0.10% (min RM8) &middot; Clr 0.03% &middot; Stamp 0.10% &middot; SST 0%
+              </p>
+            </div>
+            <svg
+              id="settingsChevron"
+              class="w-4 h-4 text-bpc-teal transition-transform duration-200 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+
+          <div id="settingsBody" class="hidden p-5 border-t border-bpc-border space-y-4">
+            <!-- Broker Quick Presets -->
+            <div>
+              <p class="text-[11px] font-semibold text-bpc-slate uppercase tracking-wider mb-1.5">Broker Presets</p>
+              <div class="grid grid-cols-3 gap-1.5">
+                <button type="button" data-broker="standard" class="broker-chip py-1.5 px-2 rounded-lg bg-bpc-panelAlt hover:border-bpc-teal border border-bpc-border font-mono text-[11px] font-semibold text-bpc-ice transition">Standard 0.10%</button>
+                <button type="button" data-broker="mplus" class="broker-chip py-1.5 px-2 rounded-lg bg-bpc-panelAlt hover:border-bpc-teal border border-bpc-border font-mono text-[11px] font-semibold text-bpc-ice transition">M+ 0.08%</button>
+                <button type="button" data-broker="zero" class="broker-chip py-1.5 px-2 rounded-lg bg-bpc-panelAlt hover:border-bpc-teal border border-bpc-border font-mono text-[11px] font-semibold text-bpc-ice transition">Promo 0%</button>
+              </div>
+            </div>
+
+            <!-- Fee Schedule Inputs -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <label for="inputBrokPct" class="block text-bpc-slate mb-1">Brokerage (%)</label>
+                <input id="inputBrokPct" type="number" step="0.01" min="0" value="0.10" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <label for="inputBrokMin" class="block text-bpc-slate mb-1">Min Brokerage (RM)</label>
+                <input id="inputBrokMin" type="number" step="0.5" min="0" value="8.00" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <label for="inputClrPct" class="block text-bpc-slate mb-1">Clearing Fee (%)</label>
+                <input id="inputClrPct" type="number" step="0.01" min="0" value="0.03" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <label for="inputClrCap" class="block text-bpc-slate mb-1">Clearing Cap (RM)</label>
+                <input id="inputClrCap" type="number" step="100" min="0" value="1000" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <label for="inputStampPct" class="block text-bpc-slate mb-1">Stamp Duty (%)</label>
+                <input id="inputStampPct" type="number" step="0.01" min="0" value="0.10" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <label for="inputStampCap" class="block text-bpc-slate mb-1">Stamp Cap (RM)</label>
+                <input id="inputStampCap" type="number" step="100" min="0" value="1000" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label for="inputSstPct" class="text-bpc-slate">SST (%)</label>
+                  <div class="flex gap-1">
+                    <button type="button" data-sst="0" class="sst-chip px-1.5 py-0.5 rounded bg-bpc-panelAlt border border-bpc-border text-[9px] font-mono text-bpc-teal">0%</button>
+                    <button type="button" data-sst="8" class="sst-chip px-1.5 py-0.5 rounded bg-bpc-panelAlt border border-bpc-border text-[9px] font-mono text-bpc-slate">8%</button>
+                  </div>
+                </div>
+                <input id="inputSstPct" type="number" step="1" min="0" value="0" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+              <div>
+                <label for="inputLotSize" class="block text-bpc-slate mb-1">Board Lot (Units)</label>
+                <input id="inputLotSize" type="number" step="10" min="1" value="100" class="w-full px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border text-bpc-ice font-mono font-semibold focus:outline-none focus:border-bpc-teal" />
+              </div>
+            </div>
+
+            <!-- Custom Logo Override -->
+            <div class="pt-3 border-t border-bpc-border/70">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-semibold text-bpc-slate uppercase tracking-wider">Brand Logo Override</span>
+                <span id="logoModeBadge" class="font-mono text-[10px] px-2 py-0.5 rounded bg-bpc-teal/15 text-bpc-teal border border-bpc-teal/40">Official BPC</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <label class="flex-1 text-center cursor-pointer px-3 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-xs font-medium text-bpc-ice transition">
+                  Upload PNG / SVG
+                  <input id="customLogoInput" type="file" accept="image/png,image/svg+xml,image/webp,image/jpeg" class="hidden" />
+                </label>
+                <button
+                  type="button"
+                  id="btnResetLogo"
+                  class="hidden px-3 py-2 rounded-lg bg-bpc-crimsonBg/80 border border-bpc-crimsonText/40 text-xs font-semibold text-bpc-crimsonText hover:bg-bpc-crimsonBg transition"
+                >
+                  Restore BPC
+                </button>
+              </div>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+              <button
+                type="button"
+                id="btnResetDefaults"
+                class="text-[11px] font-mono font-semibold text-bpc-slate hover:text-bpc-teal underline underline-offset-4 transition"
+              >
+                Reset to BPC Defaults
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== RIGHT COLUMN: HERO ORDER + OUTCOMES + COPY PLAN ==================== -->
+      <section class="lg:col-span-7 space-y-5">
+
+        <!-- Card 3: Hero Order Execution Output -->
+        <div class="relative rounded-2xl bg-bpc-panel border border-bpc-teal/45 shadow-2xl shadow-black/40 overflow-hidden">
+          <!-- Subtle Watermark Emblem -->
+          <div class="pointer-events-none select-none absolute -right-4 -bottom-5 w-44 h-48 opacity-[0.06]">
+            <svg id="watermarkLogoSvg" class="w-full h-full text-bpc-teal">
+              <use href="#bpc-official-logo"></use>
+            </svg>
+            <img id="watermarkLogoImg" class="hidden w-full h-full object-contain" alt="" />
+          </div>
+
+          <div class="relative z-10 p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p class="font-mono text-[11px] font-bold uppercase tracking-widest text-bpc-teal">
+                Fee-Exact Order Size (02 &middot; Net Sizing Engine)
+              </p>
+              <span
+                id="sopVerdictBadge"
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold border"
+              >
+                SOP 1:2 &middot; CHECKING
+              </span>
+            </div>
+
+            <!-- Main Lot Output or Validation Error -->
+            <div id="heroValidWrap">
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <p id="heroOrderLots" class="font-sora text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                  BUY 39 LOTS
+                </p>
+                <p id="heroOrderUnits" class="font-mono text-base sm:text-lg font-semibold text-bpc-teal">
+                  (3,900 units)
+                </p>
+              </div>
+            </div>
+
+            <div id="heroErrorWrap" class="hidden rounded-xl bg-bpc-crimsonBg border border-bpc-crimsonText/50 px-4 py-3 text-sm font-semibold text-bpc-crimsonText">
+              Invalid setup parameters.
+            </div>
+
+            <!-- 3 Key Metrics Strip -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mt-4">
+              <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3">
+                <p class="text-[10px] font-semibold uppercase tracking-wider text-bpc-slate">Capital Required</p>
+                <p id="kpiCapReq" class="font-mono text-sm sm:text-base font-bold text-white mt-0.5">RM2,058.16</p>
+                <p id="kpiCapReqSub" class="font-mono text-[10px] text-bpc-teal mt-0.5">20.6% of equity (incl. buy fee)</p>
+              </div>
+              <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3">
+                <p class="text-[10px] font-semibold uppercase tracking-wider text-bpc-slate">Gross Position Value</p>
+                <p id="kpiPosVal" class="font-mono text-sm sm:text-base font-bold text-bpc-ice mt-0.5">RM2,047.50</p>
+                <p id="kpiPosValSub" class="font-mono text-[10px] text-bpc-slate mt-0.5">Excludes brokerage &amp; fees</p>
+              </div>
+              <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3">
+                <p class="text-[10px] font-semibold uppercase tracking-wider text-bpc-slate">Break-Even Price</p>
+                <p id="kpiBreakEven" class="font-mono text-sm sm:text-base font-bold text-bpc-gold mt-0.5">RM0.530</p>
+                <p id="kpiBreakEvenSub" class="font-mono text-[10px] text-bpc-slate mt-0.5">+1.03% hurdle to clear fees</p>
+              </div>
+            </div>
+
+            <!-- Proportional Price Ladder (SL -> EP -> BE -> TP) -->
+            <div class="mt-5 pt-4 border-t border-bpc-border/70">
+              <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+                <span class="text-bpc-crimsonText font-semibold">SL <span id="ladderSl">0.480</span></span>
+                <span class="text-bpc-ice font-semibold">EP <span id="ladderEp">0.525</span></span>
+                <span class="text-bpc-teal font-semibold">TP <span id="ladderTp">0.625</span></span>
+              </div>
+              <div class="h-3 w-full rounded-full bg-bpc-canvas border border-bpc-border overflow-hidden flex">
+                <div id="ladderRiskBar" class="h-full bg-bpc-crimsonText/75 transition-all duration-200" style="width: 31%"></div>
+                <div id="ladderRewardBar" class="h-full bg-bpc-teal transition-all duration-200" style="width: 69%"></div>
+              </div>
+              <div class="flex items-center justify-between text-[10px] font-mono text-bpc-slate mt-1.5">
+                <span id="ladderRiskLabel">Risk: RM0.045/sh</span>
+                <span id="ladderNetRrLabel" class="text-white font-bold">Net R:R &nbsp; 1 : 1.87</span>
+                <span id="ladderRewardLabel">Reward: RM0.100/sh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 & 5: Side-by-Side TP Profit vs SL Loss Outcome Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- IF TP HIT -->
+          <div class="rounded-2xl bg-bpc-tealSoft/45 border border-bpc-teal/45 p-5 shadow-lg shadow-black/25">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-sora text-xs font-extrabold uppercase tracking-widest text-bpc-teal">
+                If TP Hit
+              </span>
+              <span id="tpPctBadge" class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-bpc-teal/20 text-bpc-teal">
+                +3.68%
+              </span>
+            </div>
+            <p id="tpNetProfit" class="font-mono text-2xl sm:text-3xl font-extrabold text-bpc-teal">
+              +RM368.17
+            </p>
+            <p class="font-mono text-xs text-bpc-iceSoft mt-1">
+              New Equity: <span id="tpNewEquity" class="font-bold text-white">RM10,368.17</span>
+            </p>
+            <div class="mt-3 pt-3 border-t border-bpc-teal/25 space-y-1 text-[11px] font-mono text-bpc-iceSoft/85">
+              <div class="flex justify-between">
+                <span>Gross Gain</span>
+                <span id="tpGrossGain">+RM390.00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Round-Trip Fees</span>
+                <span id="tpRoundFees">&minus;RM21.83</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- IF SL HIT -->
+          <div class="rounded-2xl bg-bpc-crimsonBg/50 border border-bpc-crimsonText/45 p-5 shadow-lg shadow-black/25">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-sora text-xs font-extrabold uppercase tracking-widest text-bpc-crimsonText">
+                If SL Hit
+              </span>
+              <span id="slPctBadge" class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-bpc-crimsonText/20 text-bpc-crimsonText">
+                &minus;1.97%
+              </span>
+            </div>
+            <p id="slNetLoss" class="font-mono text-2xl sm:text-3xl font-extrabold text-bpc-crimsonText">
+              &minus;RM196.60
+            </p>
+            <p class="font-mono text-xs text-bpc-iceSoft mt-1">
+              New Equity: <span id="slNewEquity" class="font-bold text-white">RM9,803.40</span>
+            </p>
+            <div class="mt-3 pt-3 border-t border-bpc-crimsonText/25 space-y-1 text-[11px] font-mono text-bpc-iceSoft/85">
+              <div class="flex justify-between">
+                <span>Stop Distance</span>
+                <span id="slStopDistPct">&minus;8.57%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Round-Trip Fees</span>
+                <span id="slRoundFees">&minus;RM21.10</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Compact Copy Trade Plan + Live Preview -->
+        <div class="rounded-2xl bg-bpc-panel border border-bpc-border shadow-xl shadow-black/30 overflow-hidden">
+          <div class="px-5 py-3.5 bg-bpc-header/70 border-b border-bpc-border flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="w-1 h-4 rounded-full bg-bpc-gold"></span>
+              <h2 class="font-sora text-xs font-bold uppercase tracking-widest text-white">
+                Quick Copy Trade Plan
+              </h2>
+            </div>
+            <button
+              type="button"
+              id="btnCopyPlan"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-bpc-teal hover:bg-bpc-teal/90 active:scale-95 text-bpc-canvas font-sora text-xs font-extrabold tracking-wide transition shadow-md shadow-bpc-teal/20"
+            >
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+              <span id="copyBtnLabel">Copy Trade Plan</span>
+            </button>
+          </div>
+          <div class="p-4 sm:p-5">
+            <pre
+              id="copyPreviewBox"
+              class="w-full rounded-xl bg-bpc-canvas border border-bpc-border p-3.5 font-mono text-[11px] sm:text-xs leading-relaxed text-bpc-iceSoft whitespace-pre-wrap select-all overflow-x-auto"
+            ></pre>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="max-w-6xl mx-auto px-4 sm:px-6 pt-2 pb-8">
+    <div class="rounded-2xl bg-bpc-panel/70 border border-bpc-border/80 px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div class="flex items-center gap-2.5">
+        <div class="w-[22px] h-[24px] shrink-0">
+          <svg id="footerLogoSvg" class="w-full h-full text-bpc-teal">
+            <use href="#bpc-official-logo"></use>
+          </svg>
+          <img id="footerLogoImg" class="hidden w-full h-full object-contain" alt="" />
+        </div>
+        <p class="text-xs text-bpc-iceSoft">
+          <span class="font-sora font-bold text-white">Bursa Papertrade Channel</span>
+          <span class="text-bpc-slate"> &middot; Smart. Simple. Systematic.</span>
+        </p>
+      </div>
+      <p class="font-mono text-[10px] text-bpc-slate">
+        #ForEducationOnly &middot; #NotFinancialAdvice &middot; #TradeAtYourOwnRisk
+      </p>
+    </div>
+  </footer>
+
   <!-- ==================== MOBILE INSTALL GUIDE MODAL (NO alert()) ==================== -->
   <div
     id="installModal"
@@ -76,7 +700,7 @@
     aria-labelledby="installModalTitle"
   >
     <div id="installModalBackdrop" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
-    <div class="relative z-10 w-full max-w-md rounded-2xl bg-bpc-panel border border-bpc-teal/50 p-5 sm:p-6 shadow-2xl shadow-black/60">
+    <div class="relative z-10 w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl bg-bpc-panel border border-bpc-teal/50 p-5 sm:p-6 shadow-2xl shadow-black/60">
       <div class="flex items-start justify-between gap-3 mb-4">
         <div>
           <p class="font-mono text-[10px] font-semibold uppercase tracking-widest text-bpc-teal">BPC Mobile App Setup</p>
@@ -98,65 +722,117 @@
       </div>
 
       <div class="space-y-3 text-xs text-bpc-iceSoft leading-relaxed">
-        <!-- Live Environment Diagnostic Banner (flags Telegram/WhatsApp in-app browser, iOS Chrome, or missing PWA files) -->
-        <div id="installDiagBanner" class="hidden rounded-xl bg-bpc-amberBg/80 border border-bpc-goldBorder/60 p-3 text-[11px] text-bpc-amberText leading-relaxed"></div>
-
-        <!-- iPhone Safari Steps -->
-        <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
-          <p class="font-sora text-xs font-bold text-white mb-1.5">iPhone (Must Use Safari)</p>
-          <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
-            <li>Open your <span class="font-mono text-bpc-teal">github.io</span> link in <span class="font-semibold text-white">Safari</span> (not Telegram or Chrome).</li>
-            <li>Tap the <span class="font-semibold text-bpc-teal">Share</span> icon at the bottom bar.</li>
-            <li>Scroll down and tap <span class="font-semibold text-bpc-gold">Add to Home Screen</span> &rarr; <span class="font-semibold text-white">Add</span>.</li>
-          </ol>
-        </div>
+        <!-- Live Environment Diagnostic Banner -->
+        <div id="installDiagBanner" class="hidden rounded-xl bg-bpc-amberBg/85 border border-bpc-goldBorder/60 p-3 text-[11px] text-bpc-amberText leading-relaxed"></div>
 
         <!-- Android Chrome Steps -->
         <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
-          <p class="font-sora text-xs font-bold text-white mb-1.5">Android (Must Use Chrome)</p>
+          <p class="font-sora text-xs font-bold text-white mb-1.5">Android (Open in Chrome App)</p>
           <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
-            <li>Open your <span class="font-mono text-bpc-teal">github.io</span> link in <span class="font-semibold text-white">Chrome</span> (not Telegram's built-in browser).</li>
-            <li>Tap <span class="font-semibold text-bpc-teal">Install App</span> or Chrome's <span class="font-semibold text-bpc-teal">&#8942; Menu</span> &rarr; <span class="font-semibold text-bpc-gold">Add to Home screen</span> &rarr; <span class="font-semibold text-white">Install</span>.</li>
+            <li>If you see an <span class="font-mono text-white">X</span> at top-left, tap <span class="font-semibold text-bpc-teal">&#8942;</span> &rarr; <span class="font-semibold text-white">Open in Chrome</span> first.</li>
+            <li>Make sure the 4 files below are uploaded next to <span class="font-mono text-bpc-gold">index.html</span> in GitHub.</li>
+            <li>Reload the page, then tap <span class="font-semibold text-bpc-teal">Install App</span> (or Chrome <span class="font-semibold text-bpc-teal">&#8942;</span> &rarr; <span class="font-semibold text-bpc-gold">Add to Home screen</span> &rarr; <span class="font-semibold text-white">Install</span>).</li>
           </ol>
         </div>
 
-        <!-- 1-Click GitHub Pages PWA Files Exporter (Ensures Native Chrome Install + Offline Mode) -->
-        <div class="rounded-xl bg-bpc-header/60 border border-bpc-teal/35 p-3.5">
-          <p class="font-sora text-[11px] font-bold text-bpc-teal uppercase tracking-wider mb-1">
-            GitHub Pages Install Kit (Upload Next to index.html)
-          </p>
-          <p class="text-[11px] text-bpc-iceSoft/85 mb-2.5">
-            Android Chrome requires real static files on GitHub Pages to show the native <span class="text-white font-semibold">Install App</span> prompt and work offline. Download these 4 files and upload them to the same GitHub folder as <span class="font-mono text-bpc-gold">index.html</span>:
-          </p>
+        <!-- iPhone Safari Steps -->
+        <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
+          <p class="font-sora text-xs font-bold text-white mb-1.5">iPhone (Open in Safari)</p>
+          <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
+            <li>Open your <span class="font-mono text-bpc-teal">github.io</span> link directly in <span class="font-semibold text-white">Safari</span>.</li>
+            <li>Tap the <span class="font-semibold text-bpc-teal">Share</span> icon at the bottom bar.</li>
+            <li>Tap <span class="font-semibold text-bpc-gold">Add to Home Screen</span> &rarr; <span class="font-semibold text-white">Add</span>.</li>
+          </ol>
+        </div>
+
+        <!-- 1-Click GitHub Pages PWA Kit Exporter -->
+        <div class="rounded-xl bg-bpc-header/60 border border-bpc-teal/35 p-3.5 space-y-3">
+          <div>
+            <p class="font-sora text-[11px] font-bold text-bpc-teal uppercase tracking-wider mb-1">
+              GitHub Pages Install Kit (Next to index.html)
+            </p>
+            <p class="text-[11px] text-bpc-iceSoft/85">
+              Preview blocks file downloads—use <span class="font-semibold text-white">Copy</span> to paste into GitHub (<span class="font-mono text-bpc-gold">Add file &rarr; Create new file</span>), or open your live <span class="font-mono text-bpc-teal">github.io</span> link in Chrome to download directly:
+            </p>
+          </div>
+
+          <!-- manifest.json & sw.js: Copy + Download -->
           <div class="grid grid-cols-2 gap-2">
+            <button type="button" id="btnCopyManifest" class="px-2.5 py-2 rounded-lg bg-bpc-teal/15 border border-bpc-teal/50 hover:bg-bpc-teal hover:text-bpc-canvas text-[11px] font-mono font-bold text-bpc-teal transition text-center">
+              Copy manifest.json
+            </button>
+            <button type="button" id="btnCopySw" class="px-2.5 py-2 rounded-lg bg-bpc-teal/15 border border-bpc-teal/50 hover:bg-bpc-teal hover:text-bpc-canvas text-[11px] font-mono font-bold text-bpc-teal transition text-center">
+              Copy sw.js
+            </button>
             <button type="button" id="btnDlManifest" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
               &#8595; manifest.json
             </button>
             <button type="button" id="btnDlSw" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
               &#8595; sw.js
             </button>
-            <button type="button" id="btnDlIcon192" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
-              &#8595; icon-192.png
-            </button>
-            <button type="button" id="btnDlIcon512" class="px-2.5 py-2 rounded-lg bg-bpc-canvas border border-bpc-border hover:border-bpc-teal text-[11px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
-              &#8595; icon-512.png
-            </button>
           </div>
+
+          <!-- App Icons: Direct Download + Long-Press/Right-Click Save Fallback -->
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <div class="rounded-lg bg-bpc-canvas/90 border border-bpc-border p-2 flex flex-col items-center gap-1.5">
+              <img id="previewIcon192" alt="icon-192.png" class="w-12 h-12 rounded-xl border border-bpc-teal/40 object-contain" />
+              <button type="button" id="btnDlIcon192" class="w-full px-2 py-1.5 rounded-md bg-bpc-panelAlt border border-bpc-border hover:border-bpc-teal text-[10px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
+                &#8595; icon-192.png
+              </button>
+            </div>
+            <div class="rounded-lg bg-bpc-canvas/90 border border-bpc-border p-2 flex flex-col items-center gap-1.5">
+              <img id="previewIcon512" alt="icon-512.png" class="w-12 h-12 rounded-xl border border-bpc-teal/40 object-contain" />
+              <button type="button" id="btnDlIcon512" class="w-full px-2 py-1.5 rounded-md bg-bpc-panelAlt border border-bpc-border hover:border-bpc-teal text-[10px] font-mono font-semibold text-bpc-ice hover:text-bpc-teal transition text-center">
+                &#8595; icon-512.png
+              </button>
+            </div>
+          </div>
+          <p class="text-[10px] text-bpc-slate text-center">
+            Tip: On live <span class="font-mono text-bpc-iceSoft">github.io</span>, tap &#8595; to download—or long-press / right-click each icon above &rarr; Save Image.
+          </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Toast Message Box (Never uses alert()) -->
+  <!-- Toast Notification (Never uses alert()) -->
   <div
     id="toast"
-<!-- ... existing code ... -->
+    role="status"
+    aria-live="polite"
+    class="pointer-events-none fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-bpc-header border border-bpc-teal/60 text-xs font-sora font-bold text-white shadow-2xl shadow-black/60 opacity-0 translate-y-2 transition-all duration-200"
+  ></div>
+
+  <!-- ==================== APPLICATION SCRIPT ==================== -->
+  <script>
+    (() => {
+      // ============================================================
+      // 1. CONSTANTS & STATE
+      // ============================================================
+      const PREFS_STORAGE_KEY = 'bpc_net_sizing_prefs_v3';
+      const LOGO_STORAGE_KEY = 'bpc_custom_logo';
+
+      const DEFAULTS = {
+        equity: 10000,
+        riskPct: 2.0,
+        ep: 0.525,
+        sl: 0.480,
+        tp: 0.625,
+        brokPct: 0.10,
+        brokMin: 8.0,
+        clrPct: 0.03,
+        clrCap: 1000.0,
+        stampPct: 0.10,
+        stampCap: 1000.0,
+        sstPct: 0.0,
+        lotSize: 100,
+      };
+
       let state = { ...DEFAULTS };
       let currentCopyText = '';
       let toastTimeout = null;
       let copyResetTimeout = null;
       let deferredInstallPrompt = null;
-      let currentManifestBlobUrl = '';
       let cachedIcon192 = '';
       let cachedIcon512 = '';
       let hasStaticManifest = false;
@@ -166,24 +842,158 @@
       // 2. DOM CACHE
       // ============================================================
       const el = {
-        // Logo & PWA slots (Vector SVG vs Custom Uploaded Image)
         dynamicFavicon: document.getElementById('dynamicFavicon'),
         appleTouchIcon: document.getElementById('appleTouchIcon'),
         pwaManifest: document.getElementById('pwaManifest'),
+        headerRiskCapBadge: document.getElementById('headerRiskCapBadge'),
         btnInstallApp: document.getElementById('btnInstallApp'),
         installBtnText: document.getElementById('installBtnText'),
         installModal: document.getElementById('installModal'),
         installModalBackdrop: document.getElementById('installModalBackdrop'),
         btnCloseInstallModal: document.getElementById('btnCloseInstallModal'),
         installDiagBanner: document.getElementById('installDiagBanner'),
+        btnCopyManifest: document.getElementById('btnCopyManifest'),
+        btnCopySw: document.getElementById('btnCopySw'),
         btnDlManifest: document.getElementById('btnDlManifest'),
         btnDlSw: document.getElementById('btnDlSw'),
         btnDlIcon192: document.getElementById('btnDlIcon192'),
         btnDlIcon512: document.getElementById('btnDlIcon512'),
+        previewIcon192: document.getElementById('previewIcon192'),
+        previewIcon512: document.getElementById('previewIcon512'),
+
         headerLogoSvg: document.getElementById('headerLogoSvg'),
-// ... existing code ...
+        headerLogoImg: document.getElementById('headerLogoImg'),
+        watermarkLogoSvg: document.getElementById('watermarkLogoSvg'),
+        watermarkLogoImg: document.getElementById('watermarkLogoImg'),
+        footerLogoSvg: document.getElementById('footerLogoSvg'),
+        footerLogoImg: document.getElementById('footerLogoImg'),
+        customLogoInput: document.getElementById('customLogoInput'),
+        btnResetLogo: document.getElementById('btnResetLogo'),
+        logoModeBadge: document.getElementById('logoModeBadge'),
+
+        inputEquity: document.getElementById('inputEquity'),
+        inputRiskPct: document.getElementById('inputRiskPct'),
+        btnCustomRisk: document.getElementById('btnCustomRisk'),
+        customRiskWrap: document.getElementById('customRiskWrap'),
+        maxRiskRmHint: document.getElementById('maxRiskRmHint'),
+        inputEp: document.getElementById('inputEp'),
+        inputSl: document.getElementById('inputSl'),
+        inputTp: document.getElementById('inputTp'),
+        slDistHint: document.getElementById('slDistHint'),
+        tpDistHint: document.getElementById('tpDistHint'),
+
+        btnToggleSettings: document.getElementById('btnToggleSettings'),
+        settingsChevron: document.getElementById('settingsChevron'),
+        settingsBody: document.getElementById('settingsBody'),
+        feeSummarySubtitle: document.getElementById('feeSummarySubtitle'),
+        inputBrokPct: document.getElementById('inputBrokPct'),
+        inputBrokMin: document.getElementById('inputBrokMin'),
+        inputClrPct: document.getElementById('inputClrPct'),
+        inputClrCap: document.getElementById('inputClrCap'),
+        inputStampPct: document.getElementById('inputStampPct'),
+        inputStampCap: document.getElementById('inputStampCap'),
+        inputSstPct: document.getElementById('inputSstPct'),
+        inputLotSize: document.getElementById('inputLotSize'),
+        btnResetDefaults: document.getElementById('btnResetDefaults'),
+
+        sopVerdictBadge: document.getElementById('sopVerdictBadge'),
+        heroValidWrap: document.getElementById('heroValidWrap'),
+        heroErrorWrap: document.getElementById('heroErrorWrap'),
+        heroOrderLots: document.getElementById('heroOrderLots'),
+        heroOrderUnits: document.getElementById('heroOrderUnits'),
+        kpiCapReq: document.getElementById('kpiCapReq'),
+        kpiCapReqSub: document.getElementById('kpiCapReqSub'),
+        kpiPosVal: document.getElementById('kpiPosVal'),
+        kpiPosValSub: document.getElementById('kpiPosValSub'),
+        kpiBreakEven: document.getElementById('kpiBreakEven'),
+        kpiBreakEvenSub: document.getElementById('kpiBreakEvenSub'),
+
+        ladderSl: document.getElementById('ladderSl'),
+        ladderEp: document.getElementById('ladderEp'),
+        ladderTp: document.getElementById('ladderTp'),
+        ladderRiskBar: document.getElementById('ladderRiskBar'),
+        ladderRewardBar: document.getElementById('ladderRewardBar'),
+        ladderRiskLabel: document.getElementById('ladderRiskLabel'),
+        ladderNetRrLabel: document.getElementById('ladderNetRrLabel'),
+        ladderRewardLabel: document.getElementById('ladderRewardLabel'),
+
+        tpPctBadge: document.getElementById('tpPctBadge'),
+        tpNetProfit: document.getElementById('tpNetProfit'),
+        tpNewEquity: document.getElementById('tpNewEquity'),
+        tpGrossGain: document.getElementById('tpGrossGain'),
+        tpRoundFees: document.getElementById('tpRoundFees'),
+
+        slPctBadge: document.getElementById('slPctBadge'),
+        slNetLoss: document.getElementById('slNetLoss'),
+        slNewEquity: document.getElementById('slNewEquity'),
+        slStopDistPct: document.getElementById('slStopDistPct'),
+        slRoundFees: document.getElementById('slRoundFees'),
+
+        btnCopyPlan: document.getElementById('btnCopyPlan'),
+        copyBtnLabel: document.getElementById('copyBtnLabel'),
+        copyPreviewBox: document.getElementById('copyPreviewBox'),
+        toast: document.getElementById('toast'),
+      };
+
       // ============================================================
-      // 4. DYNAMIC FAVICON, HOME-SCREEN PNG ICON & PWA MANIFEST
+      // 3. FORMATTERS & BURSA TICK HELPERS
+      // ============================================================
+      const fmtRM = (n, decimals = 2) => {
+        if (!Number.isFinite(n)) return 'RM0.00';
+        const abs = Math.abs(n).toLocaleString('en-MY', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        });
+        return (n < 0 ? '-RM' : 'RM') + abs;
+      };
+
+      const fmtPrice = (n) => (Number.isFinite(n) ? n.toFixed(3) : '0.000');
+
+      const fmtSignedRM = (n) => {
+        if (!Number.isFinite(n)) return 'RM0.00';
+        const abs = Math.abs(n).toLocaleString('en-MY', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+        if (n > 0) return '+RM' + abs;
+        if (n < 0) return '-RM' + abs;
+        return 'RM0.00';
+      };
+
+      const fmtSignedPct = (n, d = 2) => {
+        if (!Number.isFinite(n)) return '0.00%';
+        const sign = n > 0 ? '+' : n < 0 ? '-' : '';
+        return `${sign}${Math.abs(n).toFixed(d)}%`;
+      };
+
+      const getBursaTick = (price, dir = 1) => {
+        if (price < 1.0 || (price === 1.0 && dir < 0)) return 0.005;
+        if (price < 10.0 || (price === 10.0 && dir < 0)) return 0.01;
+        return 0.02;
+      };
+
+      const snapBursaTick = (price, roundUp = false) => {
+        if (!Number.isFinite(price) || price <= 0) return 0.005;
+        const tick = price < 1.0 ? 0.005 : price < 10.0 ? 0.01 : 0.02;
+        const raw = price / tick;
+        const snapped = (roundUp ? Math.ceil(raw - 1e-9) : Math.round(raw)) * tick;
+        return Math.max(0.005, Number(snapped.toFixed(3)));
+      };
+
+      const showToast = (msg) => {
+        if (!el.toast) return;
+        el.toast.textContent = msg;
+        el.toast.classList.remove('opacity-0', 'translate-y-2');
+        el.toast.classList.add('opacity-100', 'translate-y-0');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          el.toast.classList.add('opacity-0', 'translate-y-2');
+          el.toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 2300);
+      };
+
+      // ============================================================
+      // 4. DYNAMIC FAVICON, PNG APP ICON GENERATOR & PWA SUPPORT
       // ============================================================
       function buildDefaultFaviconDataUrl() {
         try {
@@ -197,10 +1007,48 @@
         }
       }
 
-      /**
-       * Generates real 180/192/512 PNG app icons and validates static ./manifest.json.
-       * Falls back to an absolute-URL data: manifest when hosted as a single HTML file.
-       */
+      function renderAppIconPng(sourceDataUrl, size) {
+        return new Promise((resolve) => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return resolve('');
+
+            // Solid dark navy icon background (safe for Android adaptive icons & iOS home screen)
+            ctx.fillStyle = '#0B1F2A';
+            ctx.fillRect(0, 0, size, size);
+
+            // Subtle institutional teal radial highlight
+            const grad = ctx.createRadialGradient(size * 0.5, size * 0.2, size * 0.05, size * 0.5, size * 0.5, size * 0.72);
+            grad.addColorStop(0, 'rgba(47, 209, 195, 0.22)');
+            grad.addColorStop(1, 'rgba(11, 31, 42, 0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, size, size);
+
+            const img = new Image();
+            img.onload = () => {
+              const pad = size * 0.14;
+              const maxBox = size - pad * 2;
+              const ratio = Math.min(maxBox / img.width, maxBox / img.height);
+              const drawW = img.width * ratio;
+              const drawH = img.height * ratio;
+              ctx.drawImage(img, (size - drawW) / 2, (size - drawH) / 2, drawW, drawH);
+              try {
+                resolve(canvas.toDataURL('image/png'));
+              } catch (e) {
+                resolve('');
+              }
+            };
+            img.onerror = () => resolve('');
+            img.src = sourceDataUrl;
+          } catch (err) {
+            resolve('');
+          }
+        });
+      }
+
       async function refreshPwaManifestAndIcons(customDataUrl) {
         try {
           let logoSvgOrImg = customDataUrl;
@@ -220,61 +1068,107 @@
           cachedIcon192 = icon192;
           cachedIcon512 = icon512;
 
+          if (el.previewIcon192 && icon192) el.previewIcon192.src = icon192;
+          if (el.previewIcon512 && icon512) el.previewIcon512.src = icon512;
+
           if (el.appleTouchIcon && icon180) {
             el.appleTouchIcon.href = icon180;
           }
-
-          // Check whether a real static ./manifest.json is hosted alongside index.html
-          hasStaticManifest = false;
-          if (window.location.protocol === 'https:' || window.location.hostname === 'localhost') {
-            try {
-              const res = await fetch('./manifest.json', { cache: 'no-store' });
-              if (res.ok) {
-                hasStaticManifest = true;
-              }
-            } catch (e) {
-              hasStaticManifest = false;
-            }
+      function copyTextSafe(text, successMsg) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          ta.setSelectionRange(0, ta.value.length);
+          const ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (ok) {
+            showToast(successMsg);
+            return true;
           }
-
-          // Only inject a fallback data-URI manifest if static ./manifest.json is missing
-          if (el.pwaManifest && !hasStaticManifest) {
-            const pageUrl = window.location.origin !== 'null'
-              ? window.location.origin + window.location.pathname
-              : './';
-            const scopeUrl = window.location.origin !== 'null'
-              ? new URL('./', window.location.href).href
-              : './';
-
-            const manifestObj = {
-              id: pageUrl,
-              name: 'BPC Net Sizing & TP Desk',
-              short_name: 'BPC Sizing',
-              description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
-              start_url: pageUrl,
-              scope: scopeUrl,
-              display: 'standalone',
-              orientation: 'portrait',
-              background_color: '#0B1F2A',
-              theme_color: '#0B1F2A',
-              icons: [
-                icon192 ? { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any' } : null,
-                icon512 ? { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any' } : null,
-              ].filter(Boolean),
-            };
-            el.pwaManifest.href =
-              'data:application/manifest+json;charset=utf-8,' +
-              encodeURIComponent(JSON.stringify(manifestObj));
-          }
-          updateInstallDiagnostics();
         } catch (err) {
-          // Silently ignore in restricted preview sandboxes
+          // Fallback failed
+        }
+        showToast('Could not copy automatically — please copy from the guide');
+        return false;
+      }
+
+      function getManifestJsonText() {
+        return JSON.stringify(
+          {
+            name: 'BPC Net Sizing & TP Desk',
+            short_name: 'BPC Sizing',
+            description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
+            start_url: './index.html',
+            scope: './',
+            display: 'standalone',
+            orientation: 'portrait',
+            background_color: '#0B1F2A',
+            theme_color: '#0B1F2A',
+            icons: [
+              { src: './icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+              { src: './icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+            ],
+          },
+          null,
+          2
+        );
+      }
+
+      function getSwJsText() {
+        return [
+          "const CACHE_NAME = 'bpc-sizing-v2';",
+          "const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];",
+          "self.addEventListener('install', (e) => {",
+          "  e.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));",
+          "});",
+          "self.addEventListener('activate', (e) => {",
+          "  e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))).then(() => self.clients.claim()));",
+          "});",
+          "self.addEventListener('fetch', (e) => {",
+          "  if (e.request.method !== 'GET') return;",
+          "  e.respondWith(fetch(e.request).then((res) => {",
+          "    const copy = res.clone();",
+          "    caches.open(CACHE_NAME).then((c) => c.put(e.request, copy)).catch(() => {});",
+          "    return res;",
+          "  }).catch(() => caches.match(e.request)));",
+          "});",
+        ].join('\n');
+      }
+
+      function dataUrlToBlob(dataUrl) {
+        const parts = dataUrl.split(',');
+        const mimeMatch = parts[0].match(/:(.*?);/);
+        const mime = mimeMatch ? mimeMatch[1] : 'image/png';
+        const bin = atob(parts[1]);
+        const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        return new Blob([arr], { type: mime });
+      }
+
+      function downloadFileHelper(filename, contentOrDataUrl, isDataUrl = false) {
+        try {
+          const blob = isDataUrl
+            ? dataUrlToBlob(contentOrDataUrl)
+            : new Blob([contentOrDataUrl], { type: 'text/plain;charset=utf-8' });
+          const blobUrl = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 4000);
+          showToast(`Triggered download: ${filename}`);
+        } catch (err) {
+          showToast(`Download blocked here — open live github.io link in Chrome`);
         }
       }
 
-      /**
-       * Diagnoses why native PWA install may be blocked in the current browser context.
-       */
       function updateInstallDiagnostics() {
         if (!el.installDiagBanner) return;
         const ua = navigator.userAgent || '';
@@ -287,11 +1181,11 @@
         if (proto === 'file:') {
           msg = '<strong>Local file detected:</strong> Phones cannot install <span class="font-mono">file://</span> pages. Open your live <span class="font-mono">https://...github.io/...</span> link instead.';
         } else if (isInApp) {
-          msg = '<strong>In-App Browser detected (Telegram / WhatsApp / Social):</strong> Built-in browsers block app installation. Tap the menu (&#8942; or Share) and choose <strong>Open in Chrome</strong> or <strong>Open in Safari</strong> first.';
+          msg = '<strong>In-App Browser detected:</strong> Built-in app browsers block installation. Tap the menu (&#8942; or Share) and choose <strong>Open in Chrome</strong> (Android) or <strong>Open in Safari</strong> (iPhone).';
         } else if (isIosNonSafari) {
-          msg = '<strong>iPhone Chrome/External Browser detected:</strong> Apple only allows Home Screen app installation from <strong>Safari</strong>. Copy this URL and open it in Safari.';
+          msg = '<strong>iPhone Chrome/External Browser detected:</strong> Apple only supports Home Screen installation from <strong>Safari</strong>. Copy this link and open it in Safari.';
         } else if (proto === 'https:' && (!hasStaticManifest || !hasServiceWorker)) {
-          msg = '<strong>GitHub Pages PWA files missing:</strong> Download the 4 files below (<span class="font-mono">manifest.json</span>, <span class="font-mono">sw.js</span>, and both PNG icons) and upload them into the same GitHub folder as <span class="font-mono">index.html</span> so Android Chrome activates 1-tap install.';
+          msg = '<strong>GitHub Pages PWA files not found yet:</strong> Tap the 4 download buttons below and upload <span class="font-mono">manifest.json</span>, <span class="font-mono">sw.js</span>, <span class="font-mono">icon-192.png</span>, and <span class="font-mono">icon-512.png</span> beside <span class="font-mono">index.html</span> in GitHub, wait 2 minutes, then reload in Chrome.';
         }
 
         if (msg) {
@@ -344,12 +1238,8 @@
         });
 
         if (el.btnResetLogo) el.btnResetLogo.classList.toggle('hidden', !hasCustom);
-        if (el.logoModeBadge) {
-          el.logoModeBadge.textContent = hasCustom ? 'Custom Upload' : 'Official BPC';
-        }
-        if (el.dynamicFavicon) {
-          el.dynamicFavicon.href = hasCustom ? customDataUrl : buildDefaultFaviconDataUrl();
-        }
+        if (el.logoModeBadge) el.logoModeBadge.textContent = hasCustom ? 'Custom Upload' : 'Official BPC';
+        if (el.dynamicFavicon) el.dynamicFavicon.href = hasCustom ? customDataUrl : buildDefaultFaviconDataUrl();
         refreshPwaManifestAndIcons(customDataUrl);
       }
 
@@ -363,7 +1253,6 @@
       }
 
       function setupPwaInstall() {
-        // Hide the Install button if already running as an installed full-screen phone app
         const isStandalone =
           (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
           window.navigator.standalone === true;
@@ -372,7 +1261,6 @@
           el.btnInstallApp.classList.add('hidden');
         }
 
-        // Register ./sw.js on HTTPS (required by Android Chrome for full PWA install + offline launch)
         if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
           navigator.serviceWorker
             .register('./sw.js', { scope: './' })
@@ -386,7 +1274,6 @@
             });
         }
 
-        // Capture Android Chrome / Edge native install prompt when hosted over HTTPS
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           deferredInstallPrompt = e;
@@ -397,11 +1284,513 @@
         window.addEventListener('appinstalled', () => {
           deferredInstallPrompt = null;
           if (el.btnInstallApp) el.btnInstallApp.classList.add('hidden');
-          showToast('BPC Sizing Desk installed on your device');
+          showToast('BPC Sizing Desk installed on your phone');
         });
       }
-// ... existing code ...
-        // Reset Custom Logo back to Official BPC Emblem
+
+      // ============================================================
+      // 5. PERSISTENT PREFERENCES
+      // ============================================================
+      function loadPrefs() {
+        try {
+          const raw = localStorage.getItem(PREFS_STORAGE_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          const keys = ['equity', 'riskPct', 'brokPct', 'brokMin', 'clrPct', 'clrCap', 'stampPct', 'stampCap', 'sstPct', 'lotSize'];
+          keys.forEach((k) => {
+            if (typeof parsed[k] === 'number' && Number.isFinite(parsed[k])) {
+              state[k] = parsed[k];
+            }
+          });
+        } catch (err) {
+          // Ignore storage errors
+        }
+        syncInputsFromState();
+      }
+
+      function savePrefs() {
+        try {
+          const payload = {
+            equity: state.equity,
+            riskPct: state.riskPct,
+            brokPct: state.brokPct,
+            brokMin: state.brokMin,
+            clrPct: state.clrPct,
+            clrCap: state.clrCap,
+            stampPct: state.stampPct,
+            stampCap: state.stampCap,
+            sstPct: state.sstPct,
+            lotSize: state.lotSize,
+          };
+          localStorage.setItem(PREFS_STORAGE_KEY, JSON.stringify(payload));
+        } catch (err) {
+          // Ignore storage errors
+        }
+      }
+
+      function syncInputsFromState() {
+        el.inputEquity.value = state.equity;
+        el.inputRiskPct.value = state.riskPct;
+        el.inputEp.value = fmtPrice(state.ep);
+        el.inputSl.value = fmtPrice(state.sl);
+        el.inputTp.value = fmtPrice(state.tp);
+        el.inputBrokPct.value = state.brokPct.toFixed(2);
+        el.inputBrokMin.value = state.brokMin.toFixed(2);
+        el.inputClrPct.value = state.clrPct.toFixed(2);
+        el.inputClrCap.value = state.clrCap;
+        el.inputStampPct.value = state.stampPct.toFixed(2);
+        el.inputStampCap.value = state.stampCap;
+        el.inputSstPct.value = state.sstPct;
+        el.inputLotSize.value = state.lotSize;
+      }
+
+      // ============================================================
+      // 6. EXACT 02 · NET SIZING DESK MATH ENGINE
+      // ============================================================
+      function computeLegFee(contractVal, brokRate, brokMin, clrRate, clrCap, stampRate, stampCap, sstRate) {
+        if (contractVal <= 0) return 0;
+        const brokerage = Math.max(brokMin, contractVal * brokRate) * (1 + sstRate);
+        const clearing = Math.min(clrCap, contractVal * clrRate);
+        const stamp = Math.min(stampCap, contractVal * stampRate);
+        return brokerage + clearing + stamp;
+      }
+
+      function solvePosition() {
+        const equity = Math.max(0, Number(state.equity) || 0);
+        const riskDec = Math.max(0, Number(state.riskPct) || 0) / 100;
+        const ep = Math.max(0, Number(state.ep) || 0);
+        const sl = Math.max(0, Number(state.sl) || 0);
+        const tp = Math.max(0, Number(state.tp) || 0);
+
+        const brokRate = Math.max(0, Number(state.brokPct) || 0) / 100;
+        const brokMin = Math.max(0, Number(state.brokMin) || 0);
+        const clrRate = Math.max(0, Number(state.clrPct) || 0) / 100;
+        const clrCap = Math.max(0, Number(state.clrCap) || 0);
+        const stampRate = Math.max(0, Number(state.stampPct) || 0) / 100;
+        const stampCap = Math.max(0, Number(state.stampCap) || 0);
+        const sstRate = Math.max(0, Number(state.sstPct) || 0) / 100;
+        const lotSize = Math.max(1, Math.round(Number(state.lotSize) || 100));
+
+        const riskBudget = equity * riskDec;
+        const riskPerSh = ep - sl;
+        const rewardPerSh = tp - ep;
+
+        let error = null;
+        if (equity <= 0) {
+          error = 'Enter your Trading Equity (RM) above RM0.';
+        } else if (ep <= 0 || sl <= 0) {
+          error = 'Enter valid Entry Point and Stop Loss prices.';
+        } else if (sl >= ep) {
+          error = 'STOP LOSS ERROR — Stop Loss must be strictly LOWER than Entry Point.';
+        }
+
+        // Exact piecewise solver matching 02 · Net Sizing Desk (N17..N21)
+        let rawUnits = 0;
+        let lots = 0;
+        let units = 0;
+
+        if (!error) {
+          const n17 = brokRate === 0 ? 1e12 : brokMin / (ep * brokRate);
+          const n18 = brokRate === 0 ? 1e12 : brokMin / (sl * brokRate);
+          const denom19 = riskPerSh + (clrRate + stampRate) * (ep + sl);
+          const denom20 = riskPerSh + ep * brokRate * (1 + sstRate) + (clrRate + stampRate) * (ep + sl);
+          const denom21 = riskPerSh + (ep + sl) * (brokRate * (1 + sstRate) + clrRate + stampRate);
+
+          const n19 = denom19 > 0 ? Math.max(0, (riskBudget - 2 * brokMin * (1 + sstRate)) / denom19) : 0;
+          const n20 = denom20 > 0 ? Math.max(0, (riskBudget - brokMin * (1 + sstRate)) / denom20) : 0;
+          const n21 = denom21 > 0 ? Math.max(0, riskBudget / denom21) : 0;
+
+          rawUnits = n19 <= n17 ? n19 : n20 <= n18 ? n20 : n21;
+          lots = Math.floor(rawUnits / lotSize);
+          units = lots * lotSize;
+
+          if (units <= 0) {
+            error = 'NOT ENOUGH RISK BUDGET to buy even 1 full board lot (after Bursa fees).';
+          }
+        }
+
+        const buyVal = units * ep;
+        const buyFee = units > 0 ? computeLegFee(buyVal, brokRate, brokMin, clrRate, clrCap, stampRate, stampCap, sstRate) : 0;
+        const capReq = buyVal + buyFee;
+        const capReqPct = equity > 0 ? (capReq / equity) * 100 : 0;
+
+        const slVal = units * sl;
+        const slSellFee = units > 0 ? computeLegFee(slVal, brokRate, brokMin, clrRate, clrCap, stampRate, stampCap, sstRate) : 0;
+        const slRoundFee = buyFee + slSellFee;
+        const slNet = units > 0 ? (slVal - slSellFee) - (buyVal + buyFee) : 0;
+        const slPctEq = equity > 0 ? (slNet / equity) * 100 : 0;
+        const slNewEq = equity + slNet;
+
+        const tpVal = units * tp;
+        const tpSellFee = units > 0 ? computeLegFee(tpVal, brokRate, brokMin, clrRate, clrCap, stampRate, stampCap, sstRate) : 0;
+        const tpRoundFee = buyFee + tpSellFee;
+        const tpGross = units > 0 ? tpVal - buyVal : 0;
+        const tpNet = units > 0 ? (tpVal - tpSellFee) - (buyVal + buyFee) : 0;
+        const tpPctEq = equity > 0 ? (tpNet / equity) * 100 : 0;
+        const tpNewEq = equity + tpNet;
+
+        const netRr = units > 0 && slNet < 0 ? tpNet / Math.abs(slNet) : 0;
+
+        // Exact break-even price (where net P/L >= 0, snapped to Bursa tick)
+        const approxBeRaw = units > 0 ? ep + (buyFee * 2) / units : ep;
+        const beTick = units > 0 ? snapBursaTick(approxBeRaw, true) : ep;
+        const beHurdlePct = ep > 0 && units > 0 ? ((beTick - ep) / ep) * 100 : 0;
+
+        return {
+          error,
+          equity,
+          riskPct: state.riskPct,
+          riskBudget,
+          ep,
+          sl,
+          tp,
+          riskPerSh,
+          rewardPerSh,
+          lots,
+          units,
+          buyVal,
+          buyFee,
+          capReq,
+          capReqPct,
+          slRoundFee,
+          slNet,
+          slPctEq,
+          slNewEq,
+          tpRoundFee,
+          tpGross,
+          tpNet,
+          tpPctEq,
+          tpNewEq,
+          netRr,
+          beTick,
+          beHurdlePct,
+        };
+      }
+
+      // ============================================================
+      // 7. RENDER ENGINE
+      // ============================================================
+      function updateRiskChipStyles() {
+        const presetVals = [0.5, 1.0, 1.5, 2.0];
+        const isPreset = presetVals.some((v) => Math.abs(v - state.riskPct) < 1e-6);
+
+        document.querySelectorAll('.risk-chip').forEach((btn) => {
+          const val = parseFloat(btn.dataset.risk);
+          const active = Math.abs(val - state.riskPct) < 1e-6;
+          btn.className = active
+            ? 'risk-chip py-1.5 rounded-lg font-mono text-xs font-bold border bg-bpc-teal text-bpc-canvas border-bpc-teal transition'
+            : 'risk-chip py-1.5 rounded-lg font-mono text-xs font-bold border bg-bpc-panelAlt text-bpc-iceSoft border-bpc-border hover:border-bpc-teal transition';
+        });
+
+        if (el.btnCustomRisk) {
+          el.btnCustomRisk.className = !isPreset
+            ? 'py-1.5 rounded-lg font-mono text-[11px] font-bold bg-bpc-gold text-bpc-canvas border border-bpc-goldBorder transition'
+            : 'py-1.5 rounded-lg font-mono text-[11px] font-bold bg-bpc-panelAlt text-bpc-slate border border-bpc-border hover:border-bpc-teal transition';
+        }
+      }
+
+      function render() {
+        const r = solvePosition();
+
+        // Header & hints
+        el.headerRiskCapBadge.textContent = `${Number(state.riskPct).toFixed(1)}% CAP`;
+        el.maxRiskRmHint.textContent = `Budget: ${fmtRM(r.riskBudget)}`;
+        el.feeSummarySubtitle.textContent = `Brok ${state.brokPct.toFixed(2)}% (min RM${state.brokMin.toFixed(0)}) · Clr ${state.clrPct.toFixed(2)}% · Stamp ${state.stampPct.toFixed(2)}% · SST ${state.sstPct}%`;
+
+        const slPct = r.ep > 0 ? ((r.sl - r.ep) / r.ep) * 100 : 0;
+        const tpPct = r.ep > 0 ? ((r.tp - r.ep) / r.ep) * 100 : 0;
+        el.slDistHint.textContent = `${fmtSignedRM(r.sl - r.ep).replace('RM', 'RM')} (${fmtSignedPct(slPct)})`;
+        el.slDistHint.textContent = `${r.sl - r.ep >= 0 ? '+' : '-'}RM${Math.abs(r.sl - r.ep).toFixed(3)} (${fmtSignedPct(slPct)})`;
+        el.tpDistHint.textContent = `${r.tp - r.ep >= 0 ? '+' : '-'}RM${Math.abs(r.tp - r.ep).toFixed(3)} (${fmtSignedPct(tpPct)})`;
+
+        updateRiskChipStyles();
+
+        // Hero Order Output & Error State
+        if (r.error) {
+          el.heroValidWrap.classList.add('hidden');
+          el.heroErrorWrap.classList.remove('hidden');
+          el.heroErrorWrap.textContent = r.error;
+          el.sopVerdictBadge.textContent = 'SETUP INVALID';
+          el.sopVerdictBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold border bg-bpc-crimsonBg text-bpc-crimsonText border-bpc-crimsonText/50';
+        } else {
+          el.heroValidWrap.classList.remove('hidden');
+          el.heroErrorWrap.classList.add('hidden');
+          el.heroOrderLots.textContent = `BUY ${r.lots.toLocaleString('en-MY')} LOTS`;
+          el.heroOrderUnits.textContent = `(${r.units.toLocaleString('en-MY')} units)`;
+
+          // 3-Tier BPC 1:2 SOP Verdict Badge
+          if (r.netRr >= 2.0) {
+            el.sopVerdictBadge.textContent = `SOP 1:2 · PASS (${r.netRr.toFixed(2)}R)`;
+            el.sopVerdictBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold border bg-bpc-tealSoft text-bpc-teal border-bpc-teal/60';
+          } else if (r.netRr >= 1.5) {
+            el.sopVerdictBadge.textContent = `SOP 1:2 · MARGINAL (${r.netRr.toFixed(2)}R)`;
+            el.sopVerdictBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold border bg-bpc-amberBg text-bpc-amberText border-bpc-goldBorder/60';
+          } else {
+            el.sopVerdictBadge.textContent = `SOP 1:2 · FAIL (${r.netRr.toFixed(2)}R)`;
+            el.sopVerdictBadge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold border bg-bpc-crimsonBg text-bpc-crimsonText border-bpc-crimsonText/50';
+          }
+        }
+
+        // KPI Strip
+        el.kpiCapReq.textContent = fmtRM(r.capReq);
+        el.kpiCapReqSub.textContent = `${r.capReqPct.toFixed(1)}% of equity (incl. buy fee)`;
+        el.kpiPosVal.textContent = fmtRM(r.buyVal);
+        el.kpiPosValSub.textContent = `Buy fee: ${fmtRM(r.buyFee)}`;
+        el.kpiBreakEven.textContent = `RM${fmtPrice(r.beTick)}`;
+        el.kpiBreakEvenSub.textContent = `+${r.beHurdlePct.toFixed(2)}% hurdle to clear fees`;
+
+        // Price Ladder
+        el.ladderSl.textContent = fmtPrice(r.sl);
+        el.ladderEp.textContent = fmtPrice(r.ep);
+        el.ladderTp.textContent = fmtPrice(r.tp);
+
+        const riskSpan = Math.max(0, r.ep - r.sl);
+        const rewardSpan = Math.max(0, r.tp - r.ep);
+        const totalSpan = riskSpan + rewardSpan;
+        const riskW = totalSpan > 0 ? Math.min(88, Math.max(12, (riskSpan / totalSpan) * 100)) : 50;
+        el.ladderRiskBar.style.width = `${riskW.toFixed(1)}%`;
+        el.ladderRewardBar.style.width = `${(100 - riskW).toFixed(1)}%`;
+        el.ladderRiskLabel.textContent = `Risk: RM${riskSpan.toFixed(3)}/sh`;
+        el.ladderRewardLabel.textContent = `Reward: RM${rewardSpan.toFixed(3)}/sh`;
+        el.ladderNetRrLabel.textContent = `Net R:R  1 : ${r.netRr.toFixed(2)}`;
+
+        // TP & SL Outcome Cards
+        el.tpPctBadge.textContent = fmtSignedPct(r.tpPctEq);
+        el.tpNetProfit.textContent = fmtSignedRM(r.tpNet);
+        el.tpNewEquity.textContent = fmtRM(r.tpNewEq);
+        el.tpGrossGain.textContent = fmtSignedRM(r.tpGross);
+        el.tpRoundFees.textContent = `-RM${r.tpRoundFee.toFixed(2)}`;
+
+        el.slPctBadge.textContent = fmtSignedPct(r.slPctEq);
+        el.slNetLoss.textContent = fmtSignedRM(r.slNet);
+        el.slNewEquity.textContent = fmtRM(r.slNewEq);
+        el.slStopDistPct.textContent = fmtSignedPct(slPct);
+        el.slRoundFees.textContent = `-RM${r.slRoundFee.toFixed(2)}`;
+
+        // Compact Numbered Copy Trade Plan
+        currentCopyText = [
+          'BPC TRADE PLAN',
+          `1. Equity: ${fmtRM(r.equity)}`,
+          `2. Risk Cap: ${Number(r.riskPct).toFixed(1)}% (Max ${fmtRM(r.riskBudget)})`,
+          `3. EP: RM${fmtPrice(r.ep)} | TP: RM${fmtPrice(r.tp)} | SL: RM${fmtPrice(r.sl)}`,
+          r.error
+            ? `4. ORDER: INVALID SETUP`
+            : `4. ORDER: BUY ${r.lots.toLocaleString('en-MY')} LOTS (${r.units.toLocaleString('en-MY')} units)`,
+          `5. Capital Req: ${fmtRM(r.capReq)} (${r.capReqPct.toFixed(1)}%)`,
+          '',
+          `If TP Hit: ${fmtSignedRM(r.tpNet)} (${fmtSignedPct(r.tpPctEq)}) -> Equity ${fmtRM(r.tpNewEq)}`,
+          `If SL Hit: ${fmtSignedRM(r.slNet)} (${fmtSignedPct(r.slPctEq)}) -> Equity ${fmtRM(r.slNewEq)}`,
+          `Net R:R: 1 : ${r.netRr.toFixed(2)} (After Fees)`,
+          '',
+          '#ForEducationOnly #NotFinancialAdvice #TradeAtYourOwnRisk',
+        ].join('\n');
+
+        el.copyPreviewBox.textContent = currentCopyText;
+      }
+
+      // ============================================================
+      // 8. EVENT BINDINGS
+      // ============================================================
+      function bindEvents() {
+        // Equity quick chips
+        document.querySelectorAll('.eq-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.equity = parseFloat(btn.dataset.equity);
+            el.inputEquity.value = state.equity;
+            savePrefs();
+            render();
+          });
+        });
+
+        // Risk preset chips
+        document.querySelectorAll('.risk-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.riskPct = parseFloat(btn.dataset.risk);
+            el.inputRiskPct.value = state.riskPct;
+            el.customRiskWrap.classList.add('hidden');
+            savePrefs();
+            render();
+          });
+        });
+
+        el.btnCustomRisk.addEventListener('click', () => {
+          el.customRiskWrap.classList.toggle('hidden');
+          if (!el.customRiskWrap.classList.contains('hidden')) {
+            el.inputRiskPct.focus();
+            el.inputRiskPct.select();
+          }
+        });
+
+        // Core numeric inputs
+        el.inputEquity.addEventListener('input', () => {
+          state.equity = parseFloat(el.inputEquity.value) || 0;
+          savePrefs();
+          render();
+        });
+        el.inputRiskPct.addEventListener('input', () => {
+          state.riskPct = parseFloat(el.inputRiskPct.value) || 0;
+          savePrefs();
+          render();
+        });
+        el.inputEp.addEventListener('input', () => {
+          state.ep = parseFloat(el.inputEp.value) || 0;
+          render();
+        });
+        el.inputSl.addEventListener('input', () => {
+          state.sl = parseFloat(el.inputSl.value) || 0;
+          render();
+        });
+        el.inputTp.addEventListener('input', () => {
+          state.tp = parseFloat(el.inputTp.value) || 0;
+          render();
+        });
+
+        // Format price inputs cleanly to 3 decimals on blur
+        [
+          [el.inputEp, 'ep'],
+          [el.inputSl, 'sl'],
+          [el.inputTp, 'tp'],
+        ].forEach(([inputNode, key]) => {
+          inputNode.addEventListener('blur', () => {
+            if (state[key] > 0) inputNode.value = fmtPrice(state[key]);
+          });
+        });
+
+        // Dynamic Bursa tick stepper buttons
+        document.querySelectorAll('.tick-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const key = btn.dataset.stepTarget;
+            const dir = parseInt(btn.dataset.stepDir, 10);
+            const cur = Number(state[key]) || 0;
+            const step = getBursaTick(cur, dir);
+            const next = Math.max(0.005, Number((cur + dir * step).toFixed(3)));
+            state[key] = next;
+            if (key === 'ep') el.inputEp.value = fmtPrice(next);
+            if (key === 'sl') el.inputSl.value = fmtPrice(next);
+            if (key === 'tp') el.inputTp.value = fmtPrice(next);
+            render();
+          });
+        });
+
+        // Auto-TP chips
+        document.querySelectorAll('.auto-tp-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const mode = btn.dataset.autoTp;
+            const ep = state.ep;
+            const sl = state.sl;
+            if (ep <= 0) return;
+            let target = ep;
+            if (mode === 'rr2' && ep > sl) target = ep + 2 * (ep - sl);
+            else if (mode === 'rr3' && ep > sl) target = ep + 3 * (ep - sl);
+            else if (mode === 'pct10') target = ep * 1.1;
+            else if (mode === 'pct20') target = ep * 1.2;
+            state.tp = snapBursaTick(target, true);
+            el.inputTp.value = fmtPrice(state.tp);
+            render();
+          });
+        });
+
+        // Settings Accordion
+        el.btnToggleSettings.addEventListener('click', () => {
+          const open = el.settingsBody.classList.toggle('hidden') === false;
+          el.btnToggleSettings.setAttribute('aria-expanded', String(open));
+          el.settingsChevron.classList.toggle('rotate-180', open);
+        });
+
+        // Broker Presets
+        document.querySelectorAll('.broker-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const type = btn.dataset.broker;
+            if (type === 'standard') {
+              state.brokPct = 0.10;
+              state.brokMin = 8.0;
+            } else if (type === 'mplus') {
+              state.brokPct = 0.08;
+              state.brokMin = 8.0;
+            } else if (type === 'zero') {
+              state.brokPct = 0.0;
+              state.brokMin = 0.0;
+            }
+            syncInputsFromState();
+            savePrefs();
+            render();
+            showToast(`Applied ${btn.textContent.trim()} preset`);
+          });
+        });
+
+        // SST Quick Chips
+        document.querySelectorAll('.sst-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.sstPct = parseFloat(btn.dataset.sst) || 0;
+            el.inputSstPct.value = state.sstPct;
+            savePrefs();
+            render();
+          });
+        });
+
+        // Fee schedule inputs
+        const feeBindings = [
+          [el.inputBrokPct, 'brokPct'],
+          [el.inputBrokMin, 'brokMin'],
+          [el.inputClrPct, 'clrPct'],
+          [el.inputClrCap, 'clrCap'],
+          [el.inputStampPct, 'stampPct'],
+          [el.inputStampCap, 'stampCap'],
+          [el.inputSstPct, 'sstPct'],
+          [el.inputLotSize, 'lotSize'],
+        ];
+        feeBindings.forEach(([node, key]) => {
+          node.addEventListener('input', () => {
+            state[key] = parseFloat(node.value) || 0;
+            savePrefs();
+            render();
+          });
+        });
+
+        // Reset defaults
+        el.btnResetDefaults.addEventListener('click', () => {
+          state = { ...DEFAULTS };
+          el.customRiskWrap.classList.add('hidden');
+          syncInputsFromState();
+          savePrefs();
+          render();
+          showToast('Reset to BPC defaults');
+        });
+
+        // Copy Trade Plan
+        el.btnCopyPlan.addEventListener('click', () => {
+          const copied = copyTextSafe(currentCopyText, 'Trade plan copied to clipboard');
+          if (copied) {
+            el.copyBtnLabel.textContent = 'Copied!';
+            clearTimeout(copyResetTimeout);
+            copyResetTimeout = setTimeout(() => {
+              el.copyBtnLabel.textContent = 'Copy Trade Plan';
+            }, 1800);
+          }
+        });
+
+        // Custom Logo Upload
+        el.customLogoInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          if (file.size > 1.5 * 1024 * 1024) {
+            showToast('Please choose an image under 1.5 MB');
+        el.btnCopyManifest.addEventListener('click', () => {
+          copyTextSafe(getManifestJsonText(), 'manifest.json copied — paste into GitHub');
+        });
+
+        el.btnCopySw.addEventListener('click', () => {
+          copyTextSafe(getSwJsText(), 'sw.js copied — paste into GitHub');
+        });
+
+        el.btnDlManifest.addEventListener('click', () => {
+          downloadFileHelper('manifest.json', getManifestJsonText(), false);
+        });
+
+        el.btnDlSw.addEventListener('click', () => {
+          downloadFileHelper('sw.js', getSwJsText(), false);
+        });
+
         el.btnResetLogo.addEventListener('click', () => {
           try {
             localStorage.removeItem(LOGO_STORAGE_KEY);
@@ -413,107 +1802,96 @@
           showToast('Restored official BPC logo');
         });
 
-        // Mobile Install App Button & Modal Controls
+        // Mobile Install Modal & 1-Click GitHub Pages PWA Kit Downloaders
         const openInstallModal = () => {
           updateInstallDiagnostics();
-          if (el.installModal) el.installModal.classList.remove('hidden');
+          el.installModal.classList.remove('hidden');
         };
-        const closeInstallModal = () => el.installModal && el.installModal.classList.add('hidden');
+        const closeInstallModal = () => el.installModal.classList.add('hidden');
 
-        if (el.btnInstallApp) {
-          el.btnInstallApp.addEventListener('click', async () => {
-            if (deferredInstallPrompt) {
-              try {
-                deferredInstallPrompt.prompt();
-                const choice = await deferredInstallPrompt.userChoice;
-                deferredInstallPrompt = null;
-                if (choice && choice.outcome === 'accepted') {
-                  showToast('Installing BPC Sizing Desk...');
-                }
-                return;
-              } catch (err) {
-                // Fall back to guided modal if prompt fails
+        el.btnInstallApp.addEventListener('click', async () => {
+          if (deferredInstallPrompt) {
+            try {
+              deferredInstallPrompt.prompt();
+              const choice = await deferredInstallPrompt.userChoice;
+              deferredInstallPrompt = null;
+              if (choice && choice.outcome === 'accepted') {
+                showToast('Installing BPC Sizing Desk...');
               }
+              return;
+            } catch (err) {
+              // Fall back to guided modal
             }
-            openInstallModal();
-          });
-        }
+          }
+          openInstallModal();
+        });
 
-        // 1-Click GitHub Pages PWA Kit Download Handlers
-        if (el.btnDlManifest) {
-          el.btnDlManifest.addEventListener('click', () => {
-            const manifestJson = JSON.stringify(
-              {
-                name: 'BPC Net Sizing & TP Desk',
-                short_name: 'BPC Sizing',
-                description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
-                start_url: './index.html',
-                scope: './',
-                display: 'standalone',
-                orientation: 'portrait',
-                background_color: '#0B1F2A',
-                theme_color: '#0B1F2A',
-                icons: [
-                  { src: './icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-                  { src: './icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-                ],
-              },
-              null,
-              2
-            );
-            downloadFileHelper('manifest.json', manifestJson, false);
-          });
-        }
+        el.btnDlManifest.addEventListener('click', () => {
+          const manifestJson = JSON.stringify(
+            {
+              name: 'BPC Net Sizing & TP Desk',
+              short_name: 'BPC Sizing',
+              description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
+              start_url: './index.html',
+              scope: './',
+              display: 'standalone',
+              orientation: 'portrait',
+              background_color: '#0B1F2A',
+              theme_color: '#0B1F2A',
+              icons: [
+                { src: './icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+                { src: './icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+              ],
+            },
+            null,
+            2
+          );
+          downloadFileHelper('manifest.json', manifestJson, false);
+        });
 
-        if (el.btnDlSw) {
-          el.btnDlSw.addEventListener('click', () => {
-            const swCode = [
-              "const CACHE_NAME = 'bpc-sizing-v1';",
-              "const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];",
-              "self.addEventListener('install', (e) => {",
-              "  e.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));",
-              "});",
-              "self.addEventListener('activate', (e) => {",
-              "  e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))).then(() => self.clients.claim()));",
-              "});",
-              "self.addEventListener('fetch', (e) => {",
-              "  if (e.request.method !== 'GET') return;",
-              "  e.respondWith(fetch(e.request).then((res) => {",
-              "    const copy = res.clone();",
-              "    caches.open(CACHE_NAME).then((c) => c.put(e.request, copy)).catch(() => {});",
-              "    return res;",
-              "  }).catch(() => caches.match(e.request)));",
-              "});",
-            ].join('\n');
-            downloadFileHelper('sw.js', swCode, false);
-          });
-        }
+        el.btnDlSw.addEventListener('click', () => {
+          const swCode = [
+            "const CACHE_NAME = 'bpc-sizing-v2';",
+            "const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];",
+            "self.addEventListener('install', (e) => {",
+            "  e.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));",
+            "});",
+            "self.addEventListener('activate', (e) => {",
+            "  e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))).then(() => self.clients.claim()));",
+            "});",
+            "self.addEventListener('fetch', (e) => {",
+            "  if (e.request.method !== 'GET') return;",
+            "  e.respondWith(fetch(e.request).then((res) => {",
+            "    const copy = res.clone();",
+            "    caches.open(CACHE_NAME).then((c) => c.put(e.request, copy)).catch(() => {});",
+            "    return res;",
+            "  }).catch(() => caches.match(e.request)));",
+            "});",
+          ].join('\n');
+          downloadFileHelper('sw.js', swCode, false);
+        });
 
-        if (el.btnDlIcon192) {
-          el.btnDlIcon192.addEventListener('click', () => {
-            if (!cachedIcon192) return showToast('Icon still generating — try again in 1 second');
-            downloadFileHelper('icon-192.png', cachedIcon192, true);
-          });
-        }
+        el.btnDlIcon192.addEventListener('click', () => {
+          if (!cachedIcon192) return showToast('Icon still generating — tap again in 1 second');
+          downloadFileHelper('icon-192.png', cachedIcon192, true);
+        });
 
-        if (el.btnDlIcon512) {
-          el.btnDlIcon512.addEventListener('click', () => {
-            if (!cachedIcon512) return showToast('Icon still generating — try again in 1 second');
-            downloadFileHelper('icon-512.png', cachedIcon512, true);
-          });
-        }
+        el.btnDlIcon512.addEventListener('click', () => {
+          if (!cachedIcon512) return showToast('Icon still generating — tap again in 1 second');
+          downloadFileHelper('icon-512.png', cachedIcon512, true);
+        });
 
-        if (el.btnCloseInstallModal) el.btnCloseInstallModal.addEventListener('click', closeInstallModal);
-        if (el.installModalBackdrop) el.installModalBackdrop.addEventListener('click', closeInstallModal);
+        el.btnCloseInstallModal.addEventListener('click', closeInstallModal);
+        el.installModalBackdrop.addEventListener('click', closeInstallModal);
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && el.installModal && !el.installModal.classList.contains('hidden')) {
+          if (e.key === 'Escape' && !el.installModal.classList.contains('hidden')) {
             closeInstallModal();
           }
         });
       }
 
       // ============================================================
-      // 11. BOOTSTRAP
+      // 9. BOOTSTRAP
       // ============================================================
       loadPrefs();
       loadSavedLogo();
