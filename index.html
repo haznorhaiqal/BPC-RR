@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BPC Net Sizing &amp; TP Desk — Bursa Papertrade Channel</title>
+
+  <!-- Mobile App / PWA Installation Meta Tags (iOS & Android Full-Screen Standalone) -->
+  <meta name="theme-color" content="#0B1F2A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BPC Sizing" />
+  <meta name="application-name" content="BPC Sizing" />
+
+  <!-- Dynamic Favicon, iOS Home-Screen Icon & PWA Manifest (Generated from Official BPC Logo) -->
+  <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="" />
+  <link id="pwaManifest" rel="manifest" href="" />
+<!-- ... existing code ... -->
+          backgroundImage: {
+            'bpc-radial':
+              'radial-gradient(ellipse 85% 45% at 50% -10%, rgba(47, 209, 195, 0.14), rgba(14, 58, 67, 0.08) 45%, rgba(11, 31, 42, 0) 75%)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Native mobile app feel: prevent accidental double-tap zoom on rapid tick buttons & respect phone safe areas */
+    button, input, label {
+      touch-action: manipulation;
+    }
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  </style>
+</head>
+<!-- ... existing code ... -->
+      <!-- Right Pill Badge + Mobile Install App Trigger -->
+      <div class="flex flex-wrap items-center self-start md:self-center gap-2 shrink-0">
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-bpc-canvas/80 border border-bpc-teal/35">
+          <span class="w-2 h-2 rounded-full bg-bpc-teal animate-pulse"></span>
+          <span class="font-mono text-[11px] font-semibold tracking-wide text-[#F1F3F2]">
+            @BursaPapertradeIdeas
+          </span>
+          <span class="h-3.5 w-px bg-bpc-border" aria-hidden="true"></span>
+          <span id="headerRiskCapBadge" class="font-sora text-[11px] font-extrabold tracking-wider text-bpc-teal uppercase">
+            2% CAP
+          </span>
+        </div>
+
+        <button
+          type="button"
+          id="btnInstallApp"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-bpc-teal/15 border border-bpc-teal/60 text-bpc-teal hover:bg-bpc-teal hover:text-bpc-canvas active:scale-95 font-sora text-[11px] font-bold tracking-wide transition"
+          title="Install BPC Net Sizing & TP Desk on your phone"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+            <line x1="12" y1="18" x2="12.01" y2="18" />
+          </svg>
+          <span id="installBtnText">Install App</span>
+        </button>
+      </div>
+    </div>
+  </header>
+<!-- ... existing code ... -->
+  <!-- ==================== MOBILE INSTALL GUIDE MODAL (NO alert()) ==================== -->
+  <div
+    id="installModal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="installModalTitle"
+  >
+    <div id="installModalBackdrop" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div class="relative z-10 w-full max-w-md rounded-2xl bg-bpc-panel border border-bpc-teal/50 p-5 sm:p-6 shadow-2xl shadow-black/60">
+      <div class="flex items-start justify-between gap-3 mb-4">
+        <div>
+          <p class="font-mono text-[10px] font-semibold uppercase tracking-widest text-bpc-teal">BPC Mobile App Setup</p>
+          <h3 id="installModalTitle" class="font-sora text-base sm:text-lg font-extrabold text-white mt-0.5">
+            Install on Your Phone
+          </h3>
+        </div>
+        <button
+          type="button"
+          id="btnCloseInstallModal"
+          aria-label="Close install instructions"
+          class="p-1.5 rounded-lg bg-bpc-panelAlt border border-bpc-border text-bpc-slate hover:text-white hover:border-bpc-teal/60 transition"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-bpc-iceSoft leading-relaxed">
+        <!-- iPhone Safari Steps -->
+        <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
+          <p class="font-sora text-xs font-bold text-white mb-1.5">iPhone (Safari)</p>
+          <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
+            <li>Open the hosted app link in <span class="font-semibold text-white">Safari</span>.</li>
+            <li>Tap the <span class="font-semibold text-bpc-teal">Share</span> icon at the bottom bar.</li>
+            <li>Scroll down and tap <span class="font-semibold text-bpc-gold">Add to Home Screen</span> &rarr; <span class="font-semibold text-white">Add</span>.</li>
+          </ol>
+        </div>
+
+        <!-- Android Chrome Steps -->
+        <div class="rounded-xl bg-bpc-canvas/85 border border-bpc-border p-3.5">
+          <p class="font-sora text-xs font-bold text-white mb-1.5">Android (Chrome)</p>
+          <ol class="list-decimal list-inside space-y-1 text-bpc-iceSoft/90">
+            <li>Open the hosted app link in <span class="font-semibold text-white">Chrome</span>.</li>
+            <li>Tap the <span class="font-semibold text-bpc-teal">&#8942; Menu</span> (top-right corner).</li>
+            <li>Tap <span class="font-semibold text-bpc-gold">Add to Home screen</span> or <span class="font-semibold text-bpc-gold">Install app</span>.</li>
+          </ol>
+        </div>
+
+        <!-- Tip for Local Preview -->
+        <p class="text-[11px] text-bpc-slate px-1">
+          Tip: Rename this file to <span class="font-mono text-bpc-ice">index.html</span> and drag it onto <span class="font-mono text-bpc-teal">app.netlify.com/drop</span> to get your private HTTPS link in 30 seconds.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Message Box (Never uses alert()) -->
+  <div
+    id="toast"
+<!-- ... existing code ... -->
+      let state = { ...DEFAULTS };
+      let currentCopyText = '';
+      let toastTimeout = null;
+      let copyResetTimeout = null;
+      let deferredInstallPrompt = null;
+      let currentManifestBlobUrl = '';
+
+      // ============================================================
+      // 2. DOM CACHE
+      // ============================================================
+      const el = {
+        // Logo & PWA slots (Vector SVG vs Custom Uploaded Image)
+        dynamicFavicon: document.getElementById('dynamicFavicon'),
+        appleTouchIcon: document.getElementById('appleTouchIcon'),
+        pwaManifest: document.getElementById('pwaManifest'),
+        btnInstallApp: document.getElementById('btnInstallApp'),
+        installBtnText: document.getElementById('installBtnText'),
+        installModal: document.getElementById('installModal'),
+        installModalBackdrop: document.getElementById('installModalBackdrop'),
+        btnCloseInstallModal: document.getElementById('btnCloseInstallModal'),
+        headerLogoSvg: document.getElementById('headerLogoSvg'),
+// ... existing code ...
+      // ============================================================
+      // 4. DYNAMIC FAVICON, HOME-SCREEN PNG ICON & PWA MANIFEST
+      // ============================================================
+      function buildDefaultFaviconDataUrl() {
+        try {
+          const symPath = document.querySelector('#bpc-official-logo path');
+          if (!symPath) return '';
+          const d = symPath.getAttribute('d') || '';
+          const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0B1F2A"/><g transform="translate(9 5) scale(0.145)"><path fill-rule="evenodd" clip-rule="evenodd" fill="#2FD1C3" d="${d}"/></g></svg>`;
+          return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        } catch (err) {
+          return '';
+        }
+      }
+
+      /**
+       * Renders a crisp square PNG icon onto an offscreen canvas so iOS Safari
+       * (apple-touch-icon) and Android (manifest icons) display the official BPC emblem cleanly.
+       */
+      function renderAppIconPng(sourceUrl, size = 180) {
+        return new Promise((resolve) => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return resolve('');
+
+            // Institutional dark midnight-navy rounded app icon backdrop
+            ctx.fillStyle = '#0B1F2A';
+            ctx.fillRect(0, 0, size, size);
+
+            const img = new Image();
+            img.onload = () => {
+              const pad = Math.round(size * 0.14);
+              const maxBox = size - pad * 2;
+              const scale = Math.min(maxBox / (img.width || 316), maxBox / (img.height || 346));
+              const drawW = (img.width || 316) * scale;
+              const drawH = (img.height || 346) * scale;
+              const dx = (size - drawW) / 2;
+              const dy = (size - drawH) / 2;
+              ctx.drawImage(img, dx, dy, drawW, drawH);
+              try {
+                resolve(canvas.toDataURL('image/png'));
+              } catch (e) {
+                resolve('');
+              }
+            };
+            img.onerror = () => resolve('');
+            img.src = sourceUrl;
+          } catch (err) {
+            resolve('');
+          }
+        });
+      }
+
+      /**
+       * Updates the iOS apple-touch-icon and dynamic Web App Manifest with the active logo.
+       */
+      async function refreshPwaManifestAndIcons(customDataUrl) {
+        try {
+          let logoSvgOrImg = customDataUrl;
+          if (!logoSvgOrImg) {
+            const symPath = document.querySelector('#bpc-official-logo path');
+            const d = symPath ? symPath.getAttribute('d') || '' : '';
+            const rawSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="316" height="346" viewBox="0 0 316 346"><path fill-rule="evenodd" clip-rule="evenodd" fill="#F1F3F2" d="${d}"/></svg>`;
+            logoSvgOrImg = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(rawSvg);
+          }
+
+          const [icon180, icon512] = await Promise.all([
+            renderAppIconPng(logoSvgOrImg, 180),
+            renderAppIconPng(logoSvgOrImg, 512),
+          ]);
+
+          if (el.appleTouchIcon && icon180) {
+            el.appleTouchIcon.href = icon180;
+          }
+
+          if (el.pwaManifest) {
+            const manifestObj = {
+              name: 'BPC Net Sizing & TP Desk',
+              short_name: 'BPC Sizing',
+              description: 'Bursa Papertrade Channel — 2% Fee-Exact Position Sizing & TP Desk',
+              start_url: './',
+              display: 'standalone',
+              orientation: 'portrait',
+              background_color: '#0B1F2A',
+              theme_color: '#0B1F2A',
+              icons: [
+                icon180 ? { src: icon180, sizes: '180x180', type: 'image/png', purpose: 'any maskable' } : null,
+                icon512 ? { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any maskable' } : null,
+              ].filter(Boolean),
+            };
+            if (currentManifestBlobUrl) {
+              URL.revokeObjectURL(currentManifestBlobUrl);
+            }
+            const blob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
+            currentManifestBlobUrl = URL.createObjectURL(blob);
+            el.pwaManifest.href = currentManifestBlobUrl;
+          }
+        } catch (err) {
+          // Silently ignore in restricted preview sandboxes
+        }
+      }
+
+      function applyLogoState(customDataUrl) {
+        const hasCustom = Boolean(customDataUrl);
+        const pairs = [
+          [el.headerLogoSvg, el.headerLogoImg],
+          [el.watermarkLogoSvg, el.watermarkLogoImg],
+          [el.footerLogoSvg, el.footerLogoImg],
+        ];
+
+        pairs.forEach(([svgNode, imgNode]) => {
+          if (!svgNode || !imgNode) return;
+          if (hasCustom) {
+            imgNode.src = customDataUrl;
+            imgNode.classList.remove('hidden');
+            svgNode.classList.add('hidden');
+          } else {
+            imgNode.removeAttribute('src');
+            imgNode.classList.add('hidden');
+            svgNode.classList.remove('hidden');
+          }
+        });
+
+        if (el.btnResetLogo) el.btnResetLogo.classList.toggle('hidden', !hasCustom);
+        if (el.logoModeBadge) {
+          el.logoModeBadge.textContent = hasCustom ? 'Custom Upload' : 'Official BPC';
+        }
+        if (el.dynamicFavicon) {
+          el.dynamicFavicon.href = hasCustom ? customDataUrl : buildDefaultFaviconDataUrl();
+        }
+        refreshPwaManifestAndIcons(customDataUrl);
+      }
+
+      function loadSavedLogo() {
+        try {
+          const saved = localStorage.getItem(LOGO_STORAGE_KEY);
+          applyLogoState(saved || '');
+        } catch (err) {
+          applyLogoState('');
+        }
+      }
+
+      function setupPwaInstall() {
+        // Hide the Install button if already running as an installed full-screen phone app
+        const isStandalone =
+          (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+          window.navigator.standalone === true;
+
+        if (isStandalone && el.btnInstallApp) {
+          el.btnInstallApp.classList.add('hidden');
+        }
+
+        // Capture Android Chrome / Edge native install prompt when hosted over HTTPS
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredInstallPrompt = e;
+          if (el.btnInstallApp) el.btnInstallApp.classList.remove('hidden');
+        });
+
+        window.addEventListener('appinstalled', () => {
+          deferredInstallPrompt = null;
+          if (el.btnInstallApp) el.btnInstallApp.classList.add('hidden');
+          showToast('BPC Sizing Desk installed on your device');
+        });
+      }
+// ... existing code ...
+        // Reset Custom Logo back to Official BPC Emblem
+        el.btnResetLogo.addEventListener('click', () => {
+          try {
+            localStorage.removeItem(LOGO_STORAGE_KEY);
+          } catch (err) {
+            // Ignore storage errors
+          }
+          el.customLogoInput.value = '';
+          applyLogoState('');
+          showToast('Restored official BPC logo');
+        });
+
+        // Mobile Install App Button & Modal Controls
+        const openInstallModal = () => el.installModal && el.installModal.classList.remove('hidden');
+        const closeInstallModal = () => el.installModal && el.installModal.classList.add('hidden');
+
+        if (el.btnInstallApp) {
+          el.btnInstallApp.addEventListener('click', async () => {
+            if (deferredInstallPrompt) {
+              try {
+                deferredInstallPrompt.prompt();
+                const choice = await deferredInstallPrompt.userChoice;
+                deferredInstallPrompt = null;
+                if (choice && choice.outcome === 'accepted') {
+                  showToast('Installing BPC Sizing Desk...');
+                }
+                return;
+              } catch (err) {
+                // Fall back to guided modal if prompt fails
+              }
+            }
+            openInstallModal();
+          });
+        }
+
+        if (el.btnCloseInstallModal) el.btnCloseInstallModal.addEventListener('click', closeInstallModal);
+        if (el.installModalBackdrop) el.installModalBackdrop.addEventListener('click', closeInstallModal);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && el.installModal && !el.installModal.classList.contains('hidden')) {
+            closeInstallModal();
+          }
+        });
+      }
+
+      // ============================================================
+      // 11. BOOTSTRAP
+      // ============================================================
+      loadPrefs();
+      loadSavedLogo();
+      setupPwaInstall();
+      bindEvents();
+      render();
+    })();
+  </script>
+</body>
+</html>
